@@ -1,5 +1,6 @@
 """High-level clip extraction and production workflow."""
 
+import json
 import os
 import uuid
 from typing import Any, Dict, Optional
