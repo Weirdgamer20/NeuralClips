@@ -163,6 +163,9 @@ class RealTimeStreamMonitor:
                     target_pub = dict(r)
                     logger.info(f"Publishing live short to YouTube: '{target_pub['title']}'...")
                     upload_ok, upload_msg, yt_url = self.publisher.publish_short(target_pub)
+                    if not upload_ok and upload_msg and "429" in str(upload_msg):
+                        logger.warning("YouTube burst rate limit (429) hit. Pausing 45s for burst window to clear...")
+                        time.sleep(45)
 
             results.append({
                 "source_id": source_id,
