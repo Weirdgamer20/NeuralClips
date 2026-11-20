@@ -27,13 +27,19 @@ class YouTubePublisher:
         self.quota_manager = quota_manager or QuotaManager(db_path=self.state_store.db_path)
         self.retry_manager = retry_manager or RetryManager(db_path=self.state_store.db_path)
 
-    def publish_short(self, pub_record: Dict[str, Any], mock_mode: bool = False) -> Tuple[bool, str, Optional[str]]:
+    def publish_short(
+        self,
+        pub_record: Dict[str, Any],
+        mock_mode: bool = False,
+        publish_at: Optional[str] = None,
+    ) -> Tuple[bool, str, Optional[str]]:
         """Executes upload of a pending YouTube Short publication record."""
         pub_id = pub_record["pub_id"]
         clip_id = pub_record["clip_id"]
         file_path = pub_record["file_path"]
         title = pub_record.get("title", "Insane Gaming Moment #Shorts")
         description = pub_record.get("description", "Gaming Highlights")
+        scheduled_time = publish_at or pub_record.get("publish_at")
 
         # Focused high-relevance tags (strictly 5-6 tags to avoid algorithm spam penalty)
         raw_hashtags = pub_record.get("hashtags", "")
@@ -60,6 +66,13 @@ class YouTubePublisher:
         # 3. Live Google API Client Upload or Direct Resumable Upload
         try:
             video_id = None
+            status_config = {
+                "privacyStatus": "private" if scheduled_time else os.getenv("YOUTUBE_PRIVACY_STATUS", "public"),
+                "selfDeclaredMadeForKids": False,
+            }
+            if scheduled_time:
+                status_config["publishAt"] = scheduled_time
+
             try:
                 from googleapiclient.discovery import build
                 from googleapiclient.http import MediaFileUpload
@@ -71,10 +84,7 @@ class YouTubePublisher:
                         "tags": tags,
                         "categoryId": "20",
                     },
-                    "status": {
-                        "privacyStatus": os.getenv("YOUTUBE_PRIVACY_STATUS", "public"),
-                        "selfDeclaredMadeForKids": False,
-                    },
+                    "status": status_config,
                 }
                 media = MediaFileUpload(file_path, mimetype="video/mp4", resumable=True)
                 request = service.videos().insert(part="snippet,status", body=body, media_body=media)
@@ -84,7 +94,13 @@ class YouTubePublisher:
                 video_id = response.get("id")
             except (ImportError, Exception):
                 # Standard HTTP Resumable Upload Fallback
-                video_id = self._upload_resumable_http(file_path, title, description, tags)
+                video_id = self._upload_resumable_http(
+                    file_path=file_path,
+                    title=title,
+                    description=description,
+                    tags=tags,
+                    publish_at=scheduled_time,
+                )
 
             yt_url = f"https://www.youtube.com/shorts/{video_id}"
             self.quota_manager.record_youtube_upload()
@@ -101,7 +117,14 @@ class YouTubePublisher:
             self.state_store.update_publication_status("YOUTUBE", pub_id, status, error_msg=err_msg)
             return False, err_msg, None
 
-    def _upload_resumable_http(self, file_path: str, title: str, description: str, tags: Optional[List[str]] = None) -> str:
+    def _upload_resumable_http(
+        self,
+        file_path: str,
+        title: str,
+        description: str,
+        tags: Optional[List[str]] = None,
+        publish_at: Optional[str] = None,
+    ) -> str:
         import json
         import urllib.request
         from sources.youtube_source import get_oauth_token
@@ -115,6 +138,13 @@ class YouTubePublisher:
 
         # Step 1: Initiate resumable session
         init_url = "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status"
+        status_dict = {
+            "privacyStatus": "private" if publish_at else os.getenv("YOUTUBE_PRIVACY_STATUS", "public"),
+            "selfDeclaredMadeForKids": False,
+        }
+        if publish_at:
+            status_dict["publishAt"] = publish_at
+
         metadata = {
             "snippet": {
                 "title": title,
@@ -122,10 +152,7 @@ class YouTubePublisher:
                 "tags": final_tags,
                 "categoryId": "20",
             },
-            "status": {
-                "privacyStatus": os.getenv("YOUTUBE_PRIVACY_STATUS", "public"),
-                "selfDeclaredMadeForKids": False,
-            },
+            "status": status_dict,
         }
         init_req = urllib.request.Request(init_url, data=json.dumps(metadata).encode("utf-8"), method="POST")
         init_req.add_header("Authorization", f"Bearer {token}")
@@ -133,10 +160,15 @@ class YouTubePublisher:
         init_req.add_header("X-Upload-Content-Type", "video/mp4")
         init_req.add_header("X-Upload-Content-Length", str(file_size))
 
-        with urllib.request.urlopen(init_req, timeout=30) as init_resp:
-            upload_url = init_resp.headers.get("Location")
-            if not upload_url:
-                raise RuntimeError("No upload URL returned by YouTube API.")
+        try:
+            with urllib.request.urlopen(init_req, timeout=30) as init_resp:
+                upload_url = init_resp.headers.get("Location")
+                if not upload_url:
+                    raise RuntimeError("No upload URL returned by YouTube API.")
+        except urllib.error.HTTPError as he:
+            err_body = he.read().decode("utf-8", errors="replace")
+            logger.error(f"YouTube HTTP Error {he.code}: {err_body}")
+            raise RuntimeError(f"YouTube API returned {he.code}: {err_body}")
 
         # Step 2: Upload file bytes
         with open(file_path, "rb") as f:
