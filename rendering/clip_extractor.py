@@ -148,7 +148,7 @@ class ClipExtractor:
             self.state_store.update_highlight_status(highlight_id, "FAILED")
             return {"success": False, "error": msg}
 
-        # 4. Validate output
+        # 4. Validate output with Audio & Sync Diagnostics
         is_valid, val_msg, val_meta = self.validator.validate_clip(
             clip_path,
             mock_override={
@@ -158,7 +158,8 @@ class ClipExtractor:
                 "video_codec": "h264",
                 "audio_codec": "aac",
                 "has_audio": True,
-            } if not self.renderer.ffmpeg_path else None
+            } if not self.renderer.ffmpeg_path else None,
+            subtitle_ass_path=subtitle_file
         )
 
         if not is_valid:

@@ -5,8 +5,8 @@ import os
 import shutil
 import subprocess
 from typing import Any, Dict, Optional, Tuple
-
-
+from audio.audio_problem_detector import AudioProblemDetector
+from audio.sync_detector import SyncDetector
 from rendering.ffmpeg_renderer import get_system_ffmpeg
 
 
@@ -21,8 +21,15 @@ class RenderValidator:
     def __init__(self, ffprobe_path: Optional[str] = None):
         self.ffprobe_path = ffprobe_path or os.getenv("FFPROBE_PATH") or shutil.which("ffprobe")
         self.ffmpeg_path = get_system_ffmpeg()
+        self.audio_detector = AudioProblemDetector(self.ffmpeg_path)
+        self.sync_detector = SyncDetector(self.ffmpeg_path)
 
-    def validate_clip(self, file_path: str, mock_override: Optional[Dict[str, Any]] = None) -> Tuple[bool, str, Dict[str, Any]]:
+    def validate_clip(
+        self,
+        file_path: str,
+        mock_override: Optional[Dict[str, Any]] = None,
+        subtitle_ass_path: Optional[str] = None
+    ) -> Tuple[bool, str, Dict[str, Any]]:
         """Inspects duration, resolution, audio presence, codec, and integrity."""
         if not os.path.exists(file_path):
             return False, f"File does not exist: {file_path}", {}
@@ -64,6 +71,33 @@ class RenderValidator:
         # Check audio
         if not meta.get("has_audio"):
             return False, "Audio track is missing from rendered clip", meta
+
+        # 4. Advanced Audio Diagnostics and Sync Detection (if real file analyzed)
+        if not mock_override and os.path.exists(file_path):
+            audio_report = self.audio_detector.analyze_audio(file_path)
+            sync_report = self.sync_detector.analyze_sync(file_path, subtitle_ass_path=subtitle_ass_path)
+
+            meta["audio_report"] = {
+                "integrated_lufs": audio_report.integrated_lufs,
+                "max_volume_db": audio_report.max_volume_db,
+                "is_clipping": audio_report.is_clipping,
+                "is_too_quiet": audio_report.is_too_quiet,
+                "problems": audio_report.problems,
+                "recommended_filter": audio_report.recommended_filter
+            }
+            meta["sync_report"] = {
+                "is_in_sync": sync_report.is_in_sync,
+                "av_start_drift_sec": sync_report.av_start_drift_sec,
+                "duration_delta_sec": sync_report.duration_delta_sec,
+                "issues": sync_report.issues
+            }
+
+            # Hard failures on critical sync or audio defects
+            if not sync_report.is_in_sync and sync_report.av_start_drift_sec > 0.150:
+                return False, f"Critical A/V sync drift detected ({sync_report.av_start_drift_sec*1000:.0f}ms drift)", meta
+
+            if audio_report.is_clipping and audio_report.max_volume_db >= 0.0:
+                return False, f"Severe digital clipping detected at 0.0 dBFS", meta
 
         return True, "Valid vertical video specification", meta
 

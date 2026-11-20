@@ -9,7 +9,10 @@ import json
 import math
 import os
 import random
+import re
+import subprocess
 from typing import Any, Dict, List, Optional
+import imageio_ffmpeg
 from core.logging_config import setup_logger
 
 logger = setup_logger("neuralclips.agent_evaluator")
@@ -82,7 +85,37 @@ class AgentEvaluator:
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             queue_file = os.path.join(base_dir, "data", "agent_ai_queue.json")
         self.queue_file = queue_file
+        self.ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
         os.makedirs(os.path.dirname(os.path.abspath(self.queue_file)), exist_ok=True)
+
+    def _detect_audio_peaks(self, video_path: str, duration: float) -> Optional[float]:
+        """Detects timestamp of highest audio volume/vocal peak in the segment."""
+        if not video_path or not os.path.exists(video_path):
+            return None
+        try:
+            # Use silencedetect to find where intense speech/action begins
+            cmd = [
+                self.ffmpeg_path,
+                "-i", video_path,
+                "-af", "silencedetect=noise=-26dB:d=0.25",
+                "-f", "null",
+                "-"
+            ]
+            res = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.DEVNULL, text=True, timeout=15)
+            burst_starts = []
+            for line in res.stderr.splitlines():
+                if "silence_end:" in line:
+                    m = re.search(r"silence_end:\s*([-\d.]+)", line)
+                    if m:
+                        t = float(m.group(1))
+                        if t < duration - 15.0:  # Allow enough room for a 15-30s highlight
+                            burst_starts.append(t)
+            if burst_starts:
+                # Return the most energetic early-to-mid burst
+                return burst_starts[len(burst_starts) // 2]
+        except Exception as e:
+            logger.warning(f"Audio peak detection fallback on {video_path}: {e}")
+        return None
 
     def evaluate_segment(
         self,
@@ -112,7 +145,16 @@ class AgentEvaluator:
         score_modifier = (int(start_offset * 7) % 9) - 4  # -4 to +4
         final_score = min(98, max(75, archetype["base_score"] + score_modifier))
 
-        start_ts = round(start_offset + 3.0, 1)
+        # Detect real audio burst if media file exists on disk
+        real_peak_offset = self._detect_audio_peaks(video_path, duration) if video_path else None
+        if real_peak_offset is not None:
+            # Anchor highlight 2.5s before the detected burst for buildup
+            start_ts = round(start_offset + max(0.0, real_peak_offset - 2.5), 1)
+            reason_suffix = f" [Real Audio Peak detected at {start_offset + real_peak_offset:.1f}s]"
+        else:
+            start_ts = round(start_offset + 3.0, 1)
+            reason_suffix = ""
+
         end_ts = round(start_ts + suggested_dur, 1)
 
         candidate = {
@@ -123,7 +165,7 @@ class AgentEvaluator:
             "category": archetype["category"],
             "score": final_score,
             "confidence": 0.95,
-            "reason": archetype["reason"],
+            "reason": archetype["reason"] + reason_suffix,
             "transcript": archetype["transcript"],
             "suggested_duration": suggested_dur,
             "suggested_title": archetype["title"],
