@@ -1,0 +1,23 @@
+# Publishing & Content Routing Configuration
+game_genres:
+  fps:
+    hashtags: ["#gaming", "#gamer", "#clutch", "#fps", "#gamingclips", "#highlights"]
+    youtube_category: "20"
+  battle_royale:
+    hashtags: ["#battleroyale", "#victoryroyale", "#clutchmoment", "#gaming", "#shorts"]
+    youtube_category: "20"
+  moba:
+    hashtags: ["#moba", "#outplay", "#teamfight", "#gamersoftiktok", "#gaminghighlights"]
+    youtube_category: "20"
+  general_gaming:
+    hashtags: ["#gaming", "#gamers", "#funnygaming", "#viralclips", "#gaminglife"]
+    youtube_category: "20"
+
+ranking_weights:
+  entertainment_value: 0.25
+  gameplay_significance: 0.20
+  visual_clarity: 0.15
+  audio_reaction_quality: 0.15
+  event_completeness: 0.10
+  engagement_potential: 0.10
+  uniqueness: 0.05

@@ -1,0 +1,11 @@
+{
+  "live-monitor-autostart": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "d:\\vidclip\\.venv\\Scripts\\python.exe d:\\vidclip\\scripts\\ensure_daemon_running.py"
+      }
+    ]
+  }
+}

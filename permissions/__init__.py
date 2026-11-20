@@ -1,0 +1,1 @@
+"""NeuralClips Rights & Permissions Subsystem"""

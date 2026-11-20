@@ -1,0 +1,75 @@
+system:
+  environment: "development"
+  log_level: "INFO"
+  database_path: "data/neuralclips.db"
+  storage_root: "storage"
+  segments_dir: "storage/segments"
+  clips_dir: "storage/clips"
+  reports_dir: "storage/reports"
+
+production_targets:
+  ai_provider: "agent"           # "agent" (Antigravity Assistant, no API key needed) or "gemini"
+  daily_sources_count: 5
+  daily_clips_target: 100
+  target_clips_per_source: 20
+  min_highlight_score: 75
+  clip_duration_min_seconds: 30
+  clip_duration_max_seconds: 60
+  duration_buckets: [30, 45, 60]
+
+video_specifications:
+  output_width: 1080
+  output_height: 1920
+  aspect_ratio: "9:16"
+  container: "mp4"
+  video_codec: "libx264"
+  audio_codec: "aac"
+  pix_fmt: "yuv420p"
+  frame_rate: 30
+  audio_sample_rate: 44100
+  audio_channels: 2
+  facecam_height_ratio: 0.40
+  gameplay_height_ratio: 0.60
+
+captions:
+  enabled: true
+  font_family: "Arial Black"
+  font_size: 16
+  primary_color: "&H00FFFFFF"    # White in ASS
+  secondary_color: "&H0000FFFF"  # Yellow highlight in ASS
+  outline_color: "&H00000000"    # Black outline
+  back_color: "&H80000000"       # Semi-transparent backing
+  outline_width: 3
+  shadow_depth: 2
+  margin_bottom: 250
+  alignment: 2                   # Bottom-center
+
+publishing:
+  youtube:
+    enabled: true
+    max_daily_uploads: 100
+    privacy_status: "public"     # public, unlisted, private
+    made_for_kids: false
+    category_id: "20"            # 20 = Gaming
+    retry_limit: 3
+    base_backoff_seconds: 30
+
+  instagram:
+    enabled: false               # Disabled per user request (focusing on YouTube Shorts)
+    max_daily_uploads: 50        # Meta platform safe limit
+    share_to_feed: true
+    retry_limit: 3
+    base_backoff_seconds: 60
+    container_poll_interval_seconds: 10
+    container_poll_timeout_seconds: 300
+
+scheduling:
+  intake_frequency: "daily"
+  monitor_sources_cron: "* * * * *"       # Every minute
+  process_media_cron: "*/5 * * * *"        # Every 5 minutes
+  analyze_highlights_cron: "*/5 * * * *"   # Every 5 minutes
+  render_clips_cron: "*/5 * * * *"         # Every 5 minutes
+  publish_youtube_cron: "*/5 * * * *"      # Every 5 minutes
+  publish_instagram_cron: "*/5 * * * *"    # Every 5 minutes
+  health_check_cron: "*/15 * * * *"        # Every 15 minutes
+  daily_report_time: "23:00"

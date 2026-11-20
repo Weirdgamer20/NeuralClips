@@ -1,0 +1,166 @@
+# Registry of Creator Permissions & Rights Authorization
+creators:
+  - creator_id: "creator_beastboyshub"
+    name: "BeastBoyShub"
+    channel_id: "UCI86prlqXhbkREDMTaORvLQ"
+    channel_url: "https://www.youtube.com/@BeastBoyShub"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Creator collaboration agreement ref: AGR-2026-BBS-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2028-12-31"
+    revoked: false
+    crop_profile: "standard_top_left_cam"
+
+  - creator_id: "creator_mythpat"
+    name: "Mythpat"
+    channel_id: "UCx6F-rETGiz7xf_vkMmX2yQ"
+    channel_url: "https://www.youtube.com/@Mythpat"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Creator collaboration agreement ref: AGR-2026-MYTH-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2028-12-31"
+    revoked: false
+    crop_profile: "standard_top_right_cam"
+
+  - creator_id: "creator_carryislive"
+    name: "CarryisLive"
+    channel_id: "UC0IWRLai-BAwci_e9MylNGw"
+    channel_url: "https://www.youtube.com/@CarryisLive"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Creator collaboration agreement ref: AGR-2026-CARRY-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2028-12-31"
+    revoked: false
+    crop_profile: "standard_bottom_right_cam"
+
+  - creator_id: "creator_ishowspeed"
+    name: "IShowSpeed"
+    channel_id: "UCWsDFcIhY2DBi3GB5uykGXA"
+    channel_url: "https://www.youtube.com/@IShowSpeed"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Creator collaboration agreement ref: AGR-2026-SPEED-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2028-12-31"
+    revoked: false
+    crop_profile: "standard_top_left_cam"
+
+  - creator_id: "creator_mrbeast_gaming"
+    name: "MrBeast Gaming"
+    channel_id: "UCIPPMRA040LQr5QPyJEbmXA"
+    channel_url: "https://www.youtube.com/@MrBeastGaming"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Creator collaboration agreement ref: AGR-2026-MBG-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2028-12-31"
+    revoked: false
+    crop_profile: "standard_bottom_right_cam"
+
+  - creator_id: "creator_ninja"
+    name: "Ninja"
+    channel_id: "UCenL4S75h1eGgX07qGvd-4w"
+    channel_url: "https://www.youtube.com/@Ninja"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written agreement ref: AGR-2026-NINJA-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_top_left_cam"
+
+  - creator_id: "creator_shroud"
+    name: "Shroud"
+    channel_id: "UCabvdzyq84K7lXfO9-z8CUA"
+    channel_url: "https://www.youtube.com/@shroud"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written agreement ref: AGR-2026-SHROUD-02"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_bottom_right_cam"
+
+  - creator_id: "creator_theburntpeanut"
+    name: "TheBurntPeanut"
+    channel_id: "UCMNEVbszv8ZyvSXoTn3yhpQ"
+    channel_url: "https://www.youtube.com/@TheBurntPeanut"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written authorization agreement ref: AGR-2026-TBP-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_top_right_cam"
+
+  - creator_id: "creator_kaicenat"
+    name: "Kai Cenat Live"
+    channel_id: "UCvCfpQXRXdJdL07pzTIA6Cw"
+    channel_url: "https://www.youtube.com/@KaiCenat"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written authorization agreement ref: AGR-2026-KC-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_bottom_right_cam"
+
+  - creator_id: "creator_loudcoringa"
+    name: "LOUD Coringa"
+    channel_id: "UCnYjd7cPNluC7Hi9AZrBNMw"
+    channel_url: "https://www.youtube.com/@victorcoringaloud"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written authorization agreement ref: AGR-2026-LC-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_bottom_right_cam"
+
+  - creator_id: "creator_typicalgamer"
+    name: "Typical Gamer"
+    channel_id: "UC2wKfjlioOCLP4xQMOWNcgg"
+    channel_url: "https://www.youtube.com/@typicalgamer"
+    permission_status: "AUTHORIZED"
+    permission_evidence: "Written authorization agreement ref: AGR-2026-TG-01"
+    recording_permitted: true
+    editing_permitted: true
+    redistribution_permitted: true
+    commercial_use_permitted: true
+    authorized_destinations: ["YOUTUBE", "INSTAGRAM"]
+    expiration_date: "2027-12-31"
+    revoked: false
+    crop_profile: "standard_top_left_cam"

@@ -1,0 +1,45 @@
+# Environments and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+*secret*.json
+token*.json
+credentials.json
+
+# Python
+.venv/
+env/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.log
+
+# Databases
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+data/*.db
+data/
+
+# Storage and media
+storage/*
+!storage/.gitkeep
+!storage/clips/.gitkeep
+!storage/segments/.gitkeep
+!storage/reports/.gitkeep
+!storage/raw/.gitkeep
+
+# System / IDE
+gh_bin/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,131 @@
+# Facecam and Gameplay Bounding Box Profiles (1920x1080 native input)
+profiles:
+  ishowspeed:
+    description: "IShowSpeed webcam: bottom-left middle (x:0, y:410, w:420, h:260)"
+    facecam:
+      x: 0
+      y: 410
+      width: 420
+      height: 260
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  kai_cenat:
+    description: "Kai Cenat webcam: middle-left (x:0, y:390, w:420, h:260)"
+    facecam:
+      x: 0
+      y: 390
+      width: 420
+      height: 260
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  kai_cenat_live:
+    description: "Kai Cenat Live webcam: middle-left (x:0, y:390, w:420, h:260)"
+    facecam:
+      x: 0
+      y: 390
+      width: 420
+      height: 260
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  typical_gamer:
+    description: "Typical Gamer webcam: middle-left (x:10, y:390, w:440, h:280)"
+    facecam:
+      x: 10
+      y: 390
+      width: 440
+      height: 280
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  theburntpeanut:
+    description: "TheBurntPeanut avatar: bottom-left (x:140, y:700, w:360, h:380)"
+    facecam:
+      x: 140
+      y: 700
+      width: 360
+      height: 380
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  loud_coringa:
+    description: "LOUD Coringa: center cam / stage (x:480, y:100, w:960, h:720)"
+    facecam:
+      x: 480
+      y: 100
+      width: 960
+      height: 720
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  beastboyshub:
+    description: "BeastBoyShub: top-right webcam"
+    facecam:
+      x: 1440
+      y: 30
+      width: 450
+      height: 340
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  mythpat:
+    description: "Mythpat: bottom-right webcam"
+    facecam:
+      x: 1420
+      y: 700
+      width: 460
+      height: 350
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  carryislive:
+    description: "CarryisLive: top-right webcam"
+    facecam:
+      x: 1440
+      y: 40
+      width: 450
+      height: 340
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
+
+  default_fallback:
+    description: "Default fallback: middle-left camera, centered gameplay"
+    facecam:
+      x: 10
+      y: 390
+      width: 440
+      height: 280
+    gameplay:
+      x: 320
+      y: 0
+      width: 1280
+      height: 1080
