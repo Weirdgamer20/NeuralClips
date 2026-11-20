@@ -76,7 +76,7 @@ class FFmpegRenderer:
             if has_bgm:
                 cmd.extend(["-stream_loop", "-1", "-i", bgm_music_path])
                 audio_filter = (
-                    f"[1:a]volume={narration_volume:.2f},aresample=async=1000[main_a];"
+                    f"[1:a]volume={narration_volume:.2f},acompressor=threshold=-16dB:ratio=3:attack=5:release=50,aresample=async=1000[main_a];"
                     f"[2:a]volume={bgm_volume:.2f}[bgm_a];"
                     f"[main_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
                 )
@@ -114,7 +114,7 @@ class FFmpegRenderer:
                 cmd.extend(["-stream_loop", "-1", "-i", bgm_music_path])
                 if has_audio:
                     audio_filter = (
-                        f"[0:a]volume={narration_volume:.2f},aresample=async=1000[main_a];"
+                        f"[0:a]volume={narration_volume:.2f},acompressor=threshold=-16dB:ratio=3:attack=5:release=50,aresample=async=1000[main_a];"
                         f"[1:a]volume={bgm_volume:.2f}[bgm_a];"
                         f"[main_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
                     )
@@ -126,7 +126,7 @@ class FFmpegRenderer:
                     audio_map = "[a_out]"
             else:
                 if has_audio:
-                    audio_filter = f"[0:a]volume={narration_volume:.2f},aresample=async=1000[a_out]"
+                    audio_filter = f"[0:a]volume={narration_volume:.2f},acompressor=threshold=-16dB:ratio=3:attack=5:release=50,aresample=async=1000[a_out]"
                     full_filter = f"{video_filtergraph};{audio_filter}"
                     audio_map = "[a_out]"
                 else:

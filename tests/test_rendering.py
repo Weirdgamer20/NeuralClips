@@ -17,7 +17,7 @@ def test_crop_detector_and_layout():
     assert crop["facecam"]["height"] > 0
 
     filtergraph = LayoutEngine.generate_split_screen_filter(crop)
-    assert "vstack=inputs=2" in filtergraph
+    assert "vstack=inputs=3" in filtergraph
     assert f"crop={LayoutEngine.CANVAS_WIDTH}:{LayoutEngine.FACECAM_HEIGHT}" in filtergraph
     assert f"crop={LayoutEngine.CANVAS_WIDTH}:{LayoutEngine.GAMEPLAY_HEIGHT}" in filtergraph
 

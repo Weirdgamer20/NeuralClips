@@ -21,12 +21,13 @@ class CaptionEngine:
     def __init__(
         self,
         font_family: str = "Arial Black",
-        font_size: int = 24,
-        primary_color: str = "&H00FFFFFF",     # White
-        highlight_color: str = "&H0000FFFF",   # Vibrant Yellow
-        outline_color: str = "&H00000000",     # Black outline
-        outline_width: int = 5,
-        margin_bottom: int = 340,
+        font_size: int = 72,                   # Optimized for 2K (1440x2560) mobile readability
+        primary_color: str = "&H00FFFFFF",     # Crisp White
+        highlight_color: str = "&H0000FFFF",   # Punchy Electric Yellow
+        outline_color: str = "&H00000000",     # Deep Black Outline
+        outline_width: int = 8,                # Thick border for high-contrast visibility
+        shadow_depth: int = 4,                 # Shadow to separate text from complex gameplay
+        margin_bottom: int = 1080,             # Positioned in golden-ratio retention zone (~42% from bottom)
     ):
         self.font_family = font_family
         self.font_size = font_size
@@ -34,17 +35,18 @@ class CaptionEngine:
         self.highlight_color = highlight_color
         self.outline_color = outline_color
         self.outline_width = outline_width
+        self.shadow_depth = shadow_depth
         self.margin_bottom = margin_bottom
 
     def generate_ass_script(
         self,
         timed_words: List[Dict[str, Any]],
         output_path: str,
-        words_per_line: int = 4,
+        words_per_line: int = 3,               # Punchy 3-word chunks for rapid visual retention
     ) -> str:
         """Writes an ASS subtitle file with animated word emphasis tags."""
         header = f"""[Script Info]
-Title: NeuralClips Subtitles
+Title: NeuralClips Viral Subtitles
 ScriptType: v4.00+
 WrapStyle: 0
 ScaledBorderAndShadow: yes
@@ -53,7 +55,7 @@ PlayResY: 2560
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,{self.font_family},{self.font_size},{self.primary_color},{self.highlight_color},{self.outline_color},&H80000000,1,0,0,0,100,100,0,0,1,{self.outline_width},2,2,40,40,{self.margin_bottom},1
+Style: Default,{self.font_family},{self.font_size},{self.primary_color},{self.highlight_color},{self.outline_color},&H80000000,1,0,0,0,100,100,0,0,1,{self.outline_width},{self.shadow_depth},2,40,40,{self.margin_bottom},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

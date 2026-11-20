@@ -12,49 +12,56 @@ import os
 from typing import Any, Dict, List, Optional
 
 
-# Streamer-specific curiosity hooks (< 50 chars)
+# Streamer-specific curiosity & viral suspense hooks (< 46 chars for zero mobile truncation)
 CREATOR_HOOKS = {
     "ishowspeed": [
-        "Speed was NOT ready for GTA 6 💀 #Shorts",
-        "Speed had 1 HP in GTA 6 🔥 #Shorts",
+        "Speed broke GTA 6 physics in 3s 💀",
+        "Speed was NOT ready for GTA 6 💀",
+        "Speed had 1 HP in GTA 6... UNTIL THIS 🔥",
         "Speed found the craziest GTA 6 moment 🤯",
-        "Speed broke his desk playing GTA 6 💀",
         "Speed thought he was safe in GTA 6 😂",
+        "Speed met the GTA 6 police 💀",
     ],
     "kai_cenat": [
         "Kai Cenat did the impossible in GTA 6 🤯",
-        "Kai Cenat met GTA 6 cops 💀 #Shorts",
+        "Kai Cenat met GTA 6 cops 💀",
         "Kai Cenat was NOT expecting this in GTA 6 😂",
-        "Kai Cenat pulled off the cleanest GTA 6 play 🎯",
         "Kai Cenat found the secret car in GTA 6 🔥",
+        "Kai Cenat pulled off the cleanest play 🎯",
+        "Wait for Kai Cenat reaction in GTA 6 💀",
     ],
     "typical_gamer": [
-        "Typical Gamer found this insane GTA 6 play 🎯",
         "Typical Gamer 1000 IQ GTA 6 clutch 🔥",
         "Typical Gamer thought he was safe in GTA 6 💀",
         "Typical Gamer pulled off this GTA 6 stunt 💥",
-        "Typical Gamer had 1 HP in GTA 6 🤯 #Shorts",
+        "Typical Gamer found this insane play 🎯",
+        "Typical Gamer had 1 HP in GTA 6 🤯",
+        "Nobody expected this in GTA 6 💀",
     ],
     "theburntpeanut": [
         "TheBurntPeanut driving in GTA 6 is CHAOS 😂",
-        "TheBurntPeanut had 1 HP in GTA 6 💀 #Shorts",
         "TheBurntPeanut fastest GTA 6 driver 🚗💨",
-        "TheBurntPeanut did NOT see this coming in GTA 6 🤯",
-        "TheBurntPeanut escaped the cops in GTA 6 🔥",
+        "TheBurntPeanut had 1 HP in GTA 6 💀",
+        "TheBurntPeanut escaped GTA 6 cops 🔥",
+        "Wait for the end of this GTA 6 moment 😂",
+        "He really tried this in GTA 6 💀",
     ],
     "loud_coringa": [
-        "LOUD Coringa INSANE GTA 6 moment 🎯 #Shorts",
-        "Coringa pulled off this GTA 6 clutch 💥",
-        "Coringa had 1 HP in GTA 6 🔥 #Shorts",
-        "Coringa best GTA 6 play today 🤯 #Shorts",
-        "Coringa chaotic GTA 6 gameplay 😂 #Shorts",
+        "LOUD Coringa INSANE GTA 6 clutch 🎯",
+        "Coringa had 1 HP in GTA 6 🔥",
+        "Coringa best GTA 6 play today 🤯",
+        "Coringa chaotic GTA 6 gameplay 😂",
+        "Coringa was NOT expecting this in GTA 6 💀",
     ],
     "general": [
         "He had 1 HP in GTA 6... UNTIL THIS 🤯",
-        "Bro thought he was safe in GTA 6 💀 #Shorts",
+        "Bro thought he was safe in GTA 6 💀",
         "Cleanest GTA 6 play you will see today 🎯",
-        "Wait for the end of this GTA 6 moment 😳",
-        "This GTA 6 play broke the game 😂 #Shorts",
+        "Wait for the GTA 6 police reaction 😂",
+        "Bro broke GTA 6 physics in 3 seconds 💀",
+        "Rockstar was NOT ready for this 🤯",
+        "This NPC in GTA 6 has NO chill 💀",
+        "Did Rockstar really put this in GTA 6? 😳",
     ],
 }
 

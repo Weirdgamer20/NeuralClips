@@ -17,6 +17,21 @@ def test_source_classification():
         store = StateStore(db_path)
         registry = PermissionRegistry(state_store=store)
         registry.load_and_sync()
+        store.upsert_permission({
+            "creator_id": "creator_test",
+            "name": "Test Gaming Partner",
+            "channel_id": "UC_TEST_PARTNER_CHANNEL_123",
+            "channel_url": "https://www.youtube.com/@testpartner",
+            "permission_status": "AUTHORIZED",
+            "recording_permitted": True,
+            "editing_permitted": True,
+            "redistribution_permitted": True,
+            "commercial_use_permitted": True,
+            "authorized_destinations": ["YOUTUBE", "INSTAGRAM"],
+            "expiration_date": "2028-12-31",
+            "revoked": False,
+            "crop_profile": "standard_top_right_cam",
+        })
 
         detector = SourceDetector(permission_registry=registry)
 
