@@ -66,8 +66,10 @@ class ClipExtractor:
         highlight_id = highlight["highlight_id"]
         source_id = highlight["source_id"]
         start_ts = float(highlight["start_timestamp"])
-        end_ts = float(highlight["end_timestamp"])
-        duration = round(end_ts - start_ts, 2)
+        raw_duration = float(highlight["end_timestamp"]) - start_ts
+        # Deep-coded: Clip length strictly 30.0s to 45.0s
+        duration = round(min(45.0, max(30.0, raw_duration)), 2)
+        end_ts = round(start_ts + duration, 2)
 
         clip_id = f"clip_{highlight_id}"
         clip_path = os.path.join(self.output_dir, f"{clip_id}.mp4")

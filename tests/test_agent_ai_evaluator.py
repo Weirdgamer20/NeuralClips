@@ -16,9 +16,10 @@ def test_agent_evaluator():
     cand = res[0]
 
     assert cand["score"] >= 75
-    assert cand["suggested_duration"] in [30, 45, 60]
+    # Deep-coded: strictly 30s to 45s
+    assert cand["suggested_duration"] in [30, 35, 45]
     dur = cand["end_timestamp"] - cand["start_timestamp"]
-    assert 30.0 <= dur <= 60.0
+    assert 30.0 <= dur <= 45.0
     assert len(cand["transcript"]) > 0
     assert len(cand["suggested_title"]) > 0
     assert cand["category"] in [

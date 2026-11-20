@@ -15,8 +15,8 @@ class RenderValidator:
 
     EXPECTED_WIDTH = 1080
     EXPECTED_HEIGHT = 1920
-    MIN_DURATION = 15.0  # Support standard YouTube Shorts (15s to 60s)
-    MAX_DURATION = 60.5
+    MIN_DURATION = 30.0  # Deep-coded: strictly 30s to 45s Shorts
+    MAX_DURATION = 45.5
 
     def __init__(self, ffprobe_path: Optional[str] = None):
         self.ffprobe_path = ffprobe_path or os.getenv("FFPROBE_PATH") or shutil.which("ffprobe")
@@ -63,10 +63,10 @@ class RenderValidator:
         if (w, h) not in allowed_resolutions:
             return False, f"Invalid resolution {w}x{h}, expected 1080p (1080x1920) or 2K (1440x2560)", meta
 
-        # Check duration
+        # Check duration: Strictly 30s to 45s
         dur = meta.get("duration", 0.0)
         if dur < self.MIN_DURATION or dur > self.MAX_DURATION:
-            return False, f"Duration {dur:.1f}s outside allowed range [30, 60]s", meta
+            return False, f"Duration {dur:.1f}s outside strictly allowed range [30, 45]s", meta
 
         # Check audio
         if not meta.get("has_audio"):

@@ -64,7 +64,9 @@ class AIVideoDirector:
         creator_name: str = "streamer"
     ) -> Dict[str, Any]:
         """Directs the complete edit for a highlight, producing a Cut Manifest and rationale."""
-        logger.info(f"[AI DIRECTOR] Formulating edit strategy for '{highlight_title}' ({highlight_category})")
+        # Deep-coded: Clip length strictly 30s to 45s
+        target_duration = round(min(45.0, max(30.0, float(target_duration))), 2)
+        logger.info(f"[AI DIRECTOR] Formulating edit strategy for '{highlight_title}' ({highlight_category}) - {target_duration}s")
 
         # 1. Analyze video for cut moments and trigger points
         raw_moments = self.cut_detector.analyze_cut_moments(

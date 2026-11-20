@@ -129,11 +129,11 @@ class AgentEvaluator:
         if duration < 30.0:
             return []
 
-        # Determine optimal duration bucket: 30, 45, or 60 seconds
-        if duration >= 60.0:
-            suggested_dur = 45 if (int(start_offset) % 3 != 0) else 60
-        elif duration >= 45.0:
-            suggested_dur = 45
+        # Determine optimal duration bucket: Strictly 30 to 45 seconds only
+        if duration >= 45.0:
+            suggested_dur = 45 if (int(start_offset) % 2 == 0) else 35
+        elif duration >= 35.0:
+            suggested_dur = 35
         else:
             suggested_dur = 30
 
