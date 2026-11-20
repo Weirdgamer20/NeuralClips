@@ -4,6 +4,7 @@ import os
 import uuid
 from typing import Any, Dict, Optional
 from ai.transcript_engine import TranscriptEngine
+from ai.ai_video_director import AIVideoDirector
 from core.logging_config import setup_logger
 from core.state_store import StateStore
 from rendering.caption_engine import CaptionEngine
@@ -38,6 +39,7 @@ class ClipExtractor:
         self.renderer = renderer or FFmpegRenderer()
         self.validator = validator or RenderValidator()
         self.state_store = state_store or StateStore()
+        self.ai_director = AIVideoDirector()
         os.makedirs(self.output_dir, exist_ok=True)
 
     def get_background_music(self) -> Optional[str]:
@@ -109,7 +111,26 @@ class ClipExtractor:
             else:
                 in_path = "dummy_input.mp4"
 
-        bgm_track = self.get_background_music()
+        # Direct the edit using Antigravity AI Director
+        manifest = self.ai_director.direct_clip_edit(
+            video_path=in_path,
+            highlight_title=highlight.get("suggested_title", "GTA 6 Stream Highlight"),
+            highlight_category=highlight.get("category", "gaming"),
+            target_duration=duration,
+            creator_name=crop_name or "streamer",
+        )
+        reports_dir = os.path.join(os.path.dirname(self.output_dir), "reports")
+        os.makedirs(reports_dir, exist_ok=True)
+        manifest_path = os.path.join(reports_dir, f"{clip_id}_cut_manifest.json")
+        try:
+            with open(manifest_path, "w", encoding="utf-8") as mf:
+                json.dump(manifest, mf, indent=2)
+        except Exception as e:
+            logger.warning(f"Failed saving cut manifest: {e}")
+
+        bgm_track = manifest.get("selected_bgm", {}).get("path") or self.get_background_music()
+        bgm_volume = manifest.get("selected_bgm", {}).get("volume", 0.30)
+
         success, msg = self.renderer.render_split_screen(
             input_video_path=in_path,
             output_clip_path=clip_path,
@@ -118,7 +139,7 @@ class ClipExtractor:
             crop_config=profile,
             ass_subtitle_path=subtitle_file,
             bgm_music_path=bgm_track,
-            bgm_volume=0.30,
+            bgm_volume=bgm_volume,
             narration_volume=1.20,
         )
 
