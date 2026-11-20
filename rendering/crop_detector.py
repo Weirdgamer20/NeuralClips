@@ -118,38 +118,79 @@ class CropDetector:
             logger.warning(f"Dynamic facecam detection error: {e}")
             return None
 
+    def _scale_to_video(self, profile: Dict[str, Any], video_path: Optional[str]) -> Dict[str, Any]:
+        """Scales 1080p profile crop boxes proportionally to match actual input video dimensions."""
+        if not video_path or not os.path.exists(video_path):
+            return profile
+        try:
+            import cv2
+            cap = cv2.VideoCapture(video_path)
+            vw = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            vh = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            cap.release()
+            if vw <= 0 or vh <= 0 or (vw == 1920 and vh == 1080):
+                return profile
+
+            sx = vw / 1920.0
+            sy = vh / 1080.0
+
+            fc = profile["facecam"]
+            gp = profile["gameplay"]
+
+            new_fc_w = max(2, min(vw, int(fc["width"] * sx)))
+            new_fc_h = max(2, min(vh, int(fc["height"] * sy)))
+            new_fc_x = max(0, min(vw - new_fc_w, int(fc["x"] * sx)))
+            new_fc_y = max(0, min(vh - new_fc_h, int(fc["y"] * sy)))
+
+            new_gp_w = max(2, min(vw, int(gp["width"] * sx)))
+            new_gp_h = max(2, min(vh, int(gp["height"] * sy)))
+            new_gp_x = max(0, min(vw - new_gp_w, int(gp["x"] * sx)))
+            new_gp_y = max(0, min(vh - new_gp_h, int(gp["y"] * sy)))
+
+            return {
+                "facecam": {"x": new_fc_x, "y": new_fc_y, "width": new_fc_w, "height": new_fc_h},
+                "gameplay": {"x": new_gp_x, "y": new_gp_y, "width": new_gp_w, "height": new_gp_h},
+            }
+        except Exception:
+            return profile
+
     def resolve_crop(self, profile_name: Optional[str] = None, video_path: Optional[str] = None) -> Dict[str, Any]:
         """Returns crop coordinates, attempting AI dynamic face detection first before falling back to profiles."""
         # 1. Try dynamic AI face detection if video is available
         if video_path and os.path.exists(video_path):
             detected = self.detect_facecam_from_video(video_path)
             if detected:
-                return detected
+                return self._scale_to_video(detected, video_path)
 
         # 2. Known creator profile
+        profile = None
         if profile_name:
             raw_key = str(profile_name).lower().strip().replace(" ", "_").replace("-", "_")
 
             if raw_key in self._profiles:
-                return self._profiles[raw_key]
-
-            key_mappings = {
-                "speed": "ishowspeed",
-                "peanut": "theburntpeanut",
-                "kai": "kai_cenat",
-                "cenat": "kai_cenat",
-                "typical": "typical_gamer",
-                "coringa": "loud_coringa",
-                "shub": "beastboyshub",
-                "mythpat": "mythpat",
-                "carry": "carryislive",
-            }
-            for sub, mapped in key_mappings.items():
-                if sub in raw_key and mapped in self._profiles:
-                    return self._profiles[mapped]
+                profile = self._profiles[raw_key]
+            else:
+                key_mappings = {
+                    "speed": "ishowspeed",
+                    "peanut": "theburntpeanut",
+                    "kai": "kai_cenat",
+                    "cenat": "kai_cenat",
+                    "typical": "typical_gamer",
+                    "coringa": "loud_coringa",
+                    "shub": "beastboyshub",
+                    "mythpat": "mythpat",
+                    "carry": "carryislive",
+                }
+                for sub, mapped in key_mappings.items():
+                    if sub in raw_key and mapped in self._profiles:
+                        profile = self._profiles[mapped]
+                        break
 
         # 3. Default fallback
-        return self._profiles.get("default_fallback", {
-            "facecam": {"x": 10, "y": 390, "width": 440, "height": 280},
-            "gameplay": {"x": 320, "y": 0, "width": 1280, "height": 1080},
-        })
+        if not profile:
+            profile = self._profiles.get("default_fallback", {
+                "facecam": {"x": 10, "y": 390, "width": 440, "height": 280},
+                "gameplay": {"x": 320, "y": 0, "width": 1280, "height": 1080},
+            })
+
+        return self._scale_to_video(profile, video_path)
