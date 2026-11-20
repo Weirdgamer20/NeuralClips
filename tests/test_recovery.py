@@ -4,8 +4,8 @@ import os
 import tempfile
 from core.database import init_database
 from core.state_store import StateStore
-from monitoring.daily_report import DailyReporter
-from monitoring.recovery import PipelineRecovery
+from permissions.monitoring.daily_report import DailyReporter
+from permissions.monitoring.recovery import PipelineRecovery
 
 
 def test_crash_recovery_and_daily_report():
