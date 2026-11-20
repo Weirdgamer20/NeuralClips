@@ -3,7 +3,7 @@
 Structure:
 - 20 Batches of 5 Videos Each (100 total)
 - Every batch targets a unique psychological seed audience
-- Releases spaced exactly 2 hours apart
+- Releases spaced exactly 1 hour apart
 - Titles & descriptions are 100% natural and clean (no mention of batch or seed audience)
 - Internal metadata tracks the experimental hypothesis locally
 """
@@ -325,7 +325,7 @@ def build_manifest():
     print("Building 20-Batch A/B Testing Manifest...", flush=True)
 
     # Start scheduling at 14:00 IST today (2026-11-21 14:00:00)
-    # Spaced every 2 hours
+    # Spaced every 1 hour (20 batches across 20 hours)
     base_time = datetime(2026, 11, 21, 14, 0, 0)
     batches = []
     total_videos = 0
@@ -339,7 +339,7 @@ def build_manifest():
 
     for b_idx, prof in enumerate(AUDIENCE_PROFILES):
         batch_num = prof["batch_num"]
-        scheduled_dt = base_time + timedelta(hours=2 * b_idx)
+        scheduled_dt = base_time + timedelta(hours=1 * b_idx)
         scheduled_iso = scheduled_dt.strftime("%Y-%m-%dT%H:%M:%S.000Z")
         scheduled_ist_str = scheduled_dt.strftime("%d-%b-%Y %I:%M %p IST")
 
@@ -389,9 +389,9 @@ def build_manifest():
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S IST"),
         "total_batches": len(batches),
         "total_videos": total_videos,
-        "release_cadence": "1 batch (5 videos) every 2 hours",
+        "release_cadence": "1 batch (5 videos) every 1 hour",
         "start_time_ist": base_time.strftime("%d-%b-%Y %I:%M %p IST"),
-        "end_time_ist": (base_time + timedelta(hours=38)).strftime("%d-%b-%Y %I:%M %p IST"),
+        "end_time_ist": (base_time + timedelta(hours=19)).strftime("%d-%b-%Y %I:%M %p IST"),
         "batches": batches
     }
 

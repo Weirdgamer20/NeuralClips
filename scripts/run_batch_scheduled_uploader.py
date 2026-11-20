@@ -1,7 +1,7 @@
 """Automated Batch Scheduled Uploader Daemon.
 
 Continuously monitors the 20-Batch A/B Experiment Manifest.
-Every 2 hours, as each batch's scheduled timestamp arrives, uploads its 5 videos to YouTube as Public Shorts.
+Every 1 hour, as each batch's scheduled timestamp arrives, uploads its 5 videos to YouTube as Public Shorts.
 Logs full performance and tracking metadata locally.
 """
 
