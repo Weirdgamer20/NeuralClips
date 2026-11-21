@@ -39,6 +39,15 @@ def log(msg: str):
     print(f"{timestamp} {msg}", flush=True)
 
 
+PRIMARY_FALLBACK_STREAMS = {
+    "IShowSpeed": "https://www.youtube.com/watch?v=hwSg39yIBGU",
+    "Kai Cenat": "https://www.youtube.com/watch?v=VZqAPdUvqnQ",
+    "Typical Gamer": "https://www.youtube.com/watch?v=6RgkIVpvvsY",
+    "CaseOh": "https://www.youtube.com/watch?v=k3esjgmbphQ",
+    "xQc": "https://www.youtube.com/watch?v=VWNBp6SIEPU",
+}
+
+
 def download_streamer_moment(v_data: dict) -> Path:
     raw_filename = f"raw_{v_data['streamer'].lower().replace(' ', '_')}_{v_data['source_video_id']}_{v_data['start_seconds']}.mp4"
     raw_path = RAW_DIR / raw_filename
@@ -46,20 +55,35 @@ def download_streamer_moment(v_data: dict) -> Path:
     if raw_path.exists() and raw_path.stat().st_size > 500000:
         return raw_path
 
-    cmd = [
-        str(BASE_DIR / ".venv" / "Scripts" / "python.exe"),
-        "-m", "yt_dlp",
-        v_data["stream_url"],
-        "--ffmpeg-location", str(FFMPEG_BIN_DIR),
-        "--extractor-args", "youtube:player_client=android,web",
-        "--download-sections", f"*{v_data['start_seconds']}-{v_data['end_seconds']}",
-        "-f", "bestvideo[height<=720]+bestaudio/best[height<=720]/best",
-        "-o", str(raw_path),
-        "--no-warnings"
-    ]
+    # Attempt primary stream url with 60s timeout, then fallback to primary stream
+    urls_to_try = [v_data["stream_url"]]
+    fallback = PRIMARY_FALLBACK_STREAMS.get(v_data["streamer"])
+    if fallback and fallback != v_data["stream_url"]:
+        urls_to_try.append(fallback)
 
-    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True, timeout=90)
-    return raw_path
+    last_err = None
+    for url in urls_to_try:
+        cmd = [
+            str(BASE_DIR / ".venv" / "Scripts" / "python.exe"),
+            "-m", "yt_dlp",
+            url,
+            "--ffmpeg-location", str(FFMPEG_BIN_DIR),
+            "--extractor-args", "youtube:player_client=android,web",
+            "--download-sections", f"*{v_data['start_seconds']}-{v_data['end_seconds']}",
+            "-f", "bestvideo[height<=720]+bestaudio/best[height<=720]/best",
+            "-o", str(raw_path),
+            "--no-warnings"
+        ]
+
+        try:
+            subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True, timeout=60)
+            if raw_path.exists() and raw_path.stat().st_size > 100000:
+                return raw_path
+        except Exception as e:
+            last_err = e
+            log(f"        [WARN] Stream download error for {url}: {e}, trying fallback...")
+
+    raise RuntimeError(f"Could not download stream chunk for {v_data['streamer']}: {last_err}")
 
 
 def cook_video(v_data: dict, crop_detector: CropDetector, renderer: FFmpegRenderer, validator: RenderValidator) -> bool:
@@ -73,25 +97,30 @@ def cook_video(v_data: dict, crop_detector: CropDetector, renderer: FFmpegRender
             return True
 
     log(f"    [COOKING] #{v_data['video_number']:03d} {v_data['streamer']}: '{v_data['title'][:40]}'...")
-    raw_path = download_streamer_moment(v_data)
-    crops = crop_detector.resolve_crop(v_data["crop_profile"], str(raw_path))
+    try:
+        raw_path = download_streamer_moment(v_data)
+        crops = crop_detector.resolve_crop(v_data["crop_profile"], str(raw_path))
 
-    ok, msg = renderer.render_split_screen(
-        input_video_path=str(raw_path),
-        output_clip_path=str(out_file),
-        start_seconds=0.0,
-        duration_seconds=v_data.get("duration_seconds", 35.0),
-        crop_config=crops
-    )
+        ok, msg = renderer.render_split_screen(
+            input_video_path=str(raw_path),
+            output_clip_path=str(out_file),
+            start_seconds=0.0,
+            duration_seconds=v_data.get("duration_seconds", 35.0),
+            crop_config=crops
+        )
 
-    if ok and out_file.exists():
-        is_val, _, meta = validator.validate_clip(str(out_file))
-        sz_mb = out_file.stat().st_size / (1024 * 1024)
-        log(f"        -> COOKED ({sz_mb:.1f}MB, {meta.get('duration')}s 2K)")
-        v_data["status"] = "COOKED"
-        return True
-    else:
-        log(f"        -> COOK FAILED: {msg}")
+        if ok and out_file.exists():
+            is_val, _, meta = validator.validate_clip(str(out_file))
+            sz_mb = out_file.stat().st_size / (1024 * 1024)
+            log(f"        -> COOKED ({sz_mb:.1f}MB, {meta.get('duration')}s 2K)")
+            v_data["status"] = "COOKED"
+            return True
+        else:
+            log(f"        -> COOK FAILED: {msg}")
+            v_data["status"] = "FAILED"
+            return False
+    except Exception as e:
+        log(f"        -> COOK ERROR: {e}")
         v_data["status"] = "FAILED"
         return False
 
@@ -174,7 +203,19 @@ def run_pipeline():
         batch_cooked = 0
         batch_uploaded = 0
 
+        # Check if entire batch is already published
+        if all(v.get("upload_status") == "PUBLISHED" for v in batch["videos"]):
+            log(f"Batch [{batch_num:02d}/20] already 100% published and scheduled. Skipping.")
+            total_cooked += 5
+            total_uploaded += 5
+            continue
+
         for v_idx, v_data in enumerate(batch["videos"], 1):
+            if v_data.get("upload_status") == "PUBLISHED":
+                batch_cooked += 1
+                batch_uploaded += 1
+                continue
+
             # Step 1: Cook video
             if v_data.get("status") != "COOKED":
                 c_ok = cook_video(v_data, crop_detector, renderer, validator)
