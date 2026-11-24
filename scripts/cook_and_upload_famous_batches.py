@@ -11,7 +11,8 @@ import shutil
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+import datetime
+from datetime import timezone, timedelta
 from pathlib import Path
 
 BASE_DIR = Path(r"d:\vidclip")
@@ -135,6 +136,19 @@ def upload_video_scheduled(v_data: dict, batch: dict, publisher: YouTubePublishe
 
     publish_at = batch["scheduled_release_time_iso"]
     ist_time = batch["scheduled_release_time_ist"]
+
+    # Ensure scheduled timestamp is strictly in the future (minimum 15 mins from now)
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+    try:
+        target_utc = datetime.datetime.fromisoformat(publish_at.replace("Z", "+00:00"))
+        if target_utc <= now_utc + datetime.timedelta(minutes=10):
+            target_utc = now_utc + datetime.timedelta(minutes=15)
+            publish_at = target_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+            ist_tz = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+            ist_time = target_utc.astimezone(ist_tz).strftime("%d-%b-%Y %I:%M %p IST")
+    except Exception:
+        pass
+
     log(f"    [YOUTUBE UPLOAD] #{v_data['video_number']:03d} {v_data['streamer']} (Visibility: Scheduled for {ist_time})...")
 
     pub_rec = {

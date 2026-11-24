@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional
 from ai.cut_detector import CutDetector, CutMoment
 from ai.style_dna_extractor import StyleDNAExtractor
 from core.logging_config import setup_logger
+from core.music_vibe_engine import MusicVibeEngine
 
 logger = setup_logger("neuralclips.ai_director")
 
@@ -87,7 +88,8 @@ class AIVideoDirector:
             ))
 
         # 2. Select optimal BGM based on mood and energy
-        bgm_rec = self._select_bgm_track()
+        has_dialogue = bool(creator_name and creator_name != "gameplay_only")
+        bgm_rec = self._select_bgm_track(highlight_title, highlight_category, has_dialogue)
 
         # 3. Compile Director's Cut Manifest
         manifest = {
@@ -113,20 +115,11 @@ class AIVideoDirector:
         )
         return manifest
 
-    def _select_bgm_track(self) -> Dict[str, Any]:
-        """Selects an appropriate non-copyright background track from the music library."""
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        music_dir = os.path.join(base_dir, "assets", "music")
-        if os.path.exists(music_dir):
-            tracks = [f for f in os.listdir(music_dir) if f.endswith(".mp3")]
-            if tracks:
-                chosen = random.choice(tracks)
-                return {
-                    "filename": chosen,
-                    "path": os.path.join(music_dir, chosen),
-                    "volume": self.style_dna.get("audio_mastering", {}).get("bgm_gain", 0.30)
-                }
-        return {"filename": "none", "path": "", "volume": 0.30}
+    def _select_bgm_track(self, title: str = "", category: str = "", has_dialogue: bool = False) -> Dict[str, Any]:
+        """Selects an intelligent vibe-matched background track based on video content and pacing."""
+        rec = MusicVibeEngine.select_vibe_matched_track(title=title, category=category, has_dialogue=has_dialogue)
+        logger.info(f"[MUSIC VIBE] {rec.get('rationale')} -> Track: {rec.get('filename')} (Vol: {rec.get('volume')})")
+        return rec
 
     def _generate_editorial_summary(self, decisions: List[EditorialCutDecision], duration: float) -> str:
         """Generates a human-readable editorial explanation of why each cut was positioned."""

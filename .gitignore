@@ -38,7 +38,15 @@ storage/*
 !storage/raw/.gitkeep
 
 # System / IDE
+bin/
 gh_bin/
+*.exe
+*.dll
+*.onnx
+*.mp4
+*.webm
+*.mkv
+*.part
 .DS_Store
 Thumbs.db
 .vscode/

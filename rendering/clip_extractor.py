@@ -7,6 +7,7 @@ from typing import Any, Dict, Optional
 from ai.transcript_engine import TranscriptEngine
 from ai.ai_video_director import AIVideoDirector
 from core.logging_config import setup_logger
+from core.music_vibe_engine import MusicVibeEngine
 from core.state_store import StateStore
 from rendering.caption_engine import CaptionEngine
 from rendering.crop_detector import CropDetector
@@ -43,18 +44,10 @@ class ClipExtractor:
         self.ai_director = AIVideoDirector()
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def get_background_music(self) -> Optional[str]:
-        """Returns the path to a royalty-free background music track."""
-        if os.path.exists(self.music_dir):
-            files = [
-                os.path.join(self.music_dir, f)
-                for f in os.listdir(self.music_dir)
-                if f.lower().endswith((".mp3", ".wav", ".m4a"))
-            ]
-            if files:
-                import random
-                return random.choice(files)
-        return None
+    def get_background_music(self, title: str = "", category: str = "") -> Optional[str]:
+        """Returns the path to a vibe-matched background music track."""
+        rec = MusicVibeEngine.select_vibe_matched_track(title=title, category=category)
+        return rec.get("path")
 
     def produce_clip(
         self,
