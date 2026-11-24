@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PYTHON_EXE = os.path.join(BASE_DIR, ".venv", "Scripts", "python.exe")
+PYTHON_EXE = sys.executable if sys.executable else "python"
 SCRIPT_PATH = os.path.join(BASE_DIR, "run_live_monitor.py")
 
 def is_running():

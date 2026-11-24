@@ -13,7 +13,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import imageio_ffmpeg
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from core.env_loader import load_env

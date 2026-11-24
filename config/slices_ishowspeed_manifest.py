@@ -5,10 +5,11 @@ divided into 4 scheduled waves spaced 30 minutes apart (at least 6 videos per wa
 """
 
 from pathlib import Path
+from core.user_preferences import get_storage_dir
 
-SOURCE_STREAM = r"d:\vidclip\storage\review_cuts\source_speed_stream_36min.mp4"
-OUTPUT_DIR = r"d:\vidclip\storage\batch_ishowspeed"
-THUMB_DIR = r"d:\vidclip\storage\thumbnails_speed"
+SOURCE_STREAM = str(get_storage_dir("review_cuts") / "source_speed_stream_36min.mp4")
+OUTPUT_DIR = str(get_storage_dir("batch_ishowspeed"))
+THUMB_DIR = str(get_storage_dir("thumbnails_speed"))
 
 WAVES = [
     {

@@ -92,7 +92,7 @@ def open_kai_campaign():
         })
         res4 = recv(4)
         new_snap = res4.get("result", {}).get("content", [{}])[0].get("text", "")
-        with open("d:/vidclip/storage/kai_campaign_opened.txt", "w", encoding="utf-8") as f:
+        with open(str(BASE_DIR / "storage" / "kai_campaign_opened.txt"), "w", encoding="utf-8") as f:
             f.write(new_snap)
         print(f"Saved new snapshot ({len(new_snap)} bytes) to storage/kai_campaign_opened.txt")
 

@@ -10,9 +10,9 @@ import subprocess
 import sys
 import time
 
-OUT_DIR = r"d:\vidclip\storage\viral_100_clips"
+OUT_DIR = str(BASE_DIR / "storage" / "viral_100_clips")
 MANIFEST = os.path.join(OUT_DIR, "manifest.json")
-FFMPEG_DIR = r"d:\vidclip\.venv\Scripts"
+FFMPEG_DIR = str(BASE_DIR / ".venv\Scripts")
 
 QUERIES = [
     'ytsearch40:GTA 6 gameplay shorts -gta5 -gtav -franklin',

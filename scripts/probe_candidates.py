@@ -6,15 +6,15 @@ import imageio_ffmpeg
 ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
 
 files = [
-    r'd:\vidclip\storage\raw\live_src_NC-REALTIME-GTA6-20261120-201800_1.mp4',
-    r'd:\vidclip\storage\raw\live_src_NC-REALTIME-GTA6-20261120-201800_2.mp4',
-    r'd:\vidclip\storage\raw\live_src_NC-REALTIME-GTA6-20261120-201800_3.mp4',
-    r'd:\vidclip\storage\raw\live_src_NC-REALTIME-GTA6-20261120-202739_1.mp4',
-    r'd:\vidclip\storage\raw\live_src_NC-REALTIME-GTA6-20261120-202739_2.mp4',
-    r'd:\vidclip\storage\viral_100_clips\2BRL4ALMCyA.mp4',
-    r'd:\vidclip\storage\viral_100_clips\LphAOQ6wMm4.mp4',
-    r'd:\vidclip\storage\viral_100_clips\PbSvLZld-iU.mp4',
-    r'd:\vidclip\storage\viral_100_clips\AvWKUJhPTiQ.mp4'
+    str(BASE_DIR / "storage" / "raw\live_src_NC-REALTIME-GTA6-20261120-201800_1.mp4"),
+    str(BASE_DIR / "storage" / "raw\live_src_NC-REALTIME-GTA6-20261120-201800_2.mp4"),
+    str(BASE_DIR / "storage" / "raw\live_src_NC-REALTIME-GTA6-20261120-201800_3.mp4"),
+    str(BASE_DIR / "storage" / "raw\live_src_NC-REALTIME-GTA6-20261120-202739_1.mp4"),
+    str(BASE_DIR / "storage" / "raw\live_src_NC-REALTIME-GTA6-20261120-202739_2.mp4"),
+    str(BASE_DIR / "storage" / "viral_100_clips\2BRL4ALMCyA.mp4"),
+    str(BASE_DIR / "storage" / "viral_100_clips\LphAOQ6wMm4.mp4"),
+    str(BASE_DIR / "storage" / "viral_100_clips\PbSvLZld-iU.mp4"),
+    str(BASE_DIR / "storage" / "viral_100_clips\AvWKUJhPTiQ.mp4")
 ]
 
 for fp in files:

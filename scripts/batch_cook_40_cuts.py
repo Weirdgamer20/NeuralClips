@@ -18,7 +18,7 @@ import imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import cv2
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from config.slices_40_manifest import SLICES_CONFIG

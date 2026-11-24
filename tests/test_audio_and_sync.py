@@ -1,8 +1,10 @@
 """Unit Tests for Audio Problem Detector and A/V Sync Detector."""
 
 import os
+from pathlib import Path
 from audio.audio_problem_detector import AudioProblemDetector, AudioProblemReport
 from audio.sync_detector import SyncDetector, SyncReport
+from core.user_preferences import get_storage_dir
 
 
 def test_audio_problem_report_clipping():
@@ -66,7 +68,7 @@ def test_sync_detector_perfect_sync():
 
 def test_real_clip_audio_and_sync_analysis():
     """Analyzes a real rendered clip if available on disk."""
-    clips_dir = r"d:\vidclip\storage\clips"
+    clips_dir = str(get_storage_dir("clips"))
     if os.path.exists(clips_dir):
         files = [os.path.join(clips_dir, f) for f in os.listdir(clips_dir) if f.endswith(".mp4")]
         if files:

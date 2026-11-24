@@ -5,6 +5,7 @@ Implements all 16 required logical entities with transactional WAL mode.
 
 import os
 import sqlite3
+from pathlib import Path
 from typing import Optional
 
 SCHEMA_SQL = """
@@ -290,10 +291,13 @@ def get_db_path(custom_path: Optional[str] = None) -> str:
         path = custom_path
     elif os.getenv("DATABASE_PATH"):
         path = os.getenv("DATABASE_PATH")
+        if not os.path.isabs(path):
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            path = os.path.join(base_dir, path)
     else:
         path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "neuralclips.db")
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-    return path
+    return str(Path(path).resolve())
 
 
 def get_connection(db_path: Optional[str] = None) -> sqlite3.Connection:

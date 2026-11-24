@@ -1,6 +1,6 @@
 import json
 
-with open(r"d:\vidclip\storage\scraped_top300_gta6_shorts.json", encoding="utf-8") as f:
+with open(str(BASE_DIR / "storage" / "scraped_top300_gta6_shorts.json"), encoding="utf-8") as f:
     data = json.load(f)
 
 print("=" * 60)

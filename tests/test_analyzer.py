@@ -1,7 +1,12 @@
+import tempfile
+from pathlib import Path
 from neuralstudio.analyzer.extractor import analyze_project
 from neuralstudio.analyzer.builder import generate_code
 
-def test_detects_layers(tmp_path):
+def test_detects_layers(tmp_path=None):
+    if tmp_path is None:
+        with tempfile.TemporaryDirectory() as td:
+            return test_detects_layers(Path(td))
     src = "\n".join([
         "import torch", "import torch.nn as nn", "class TinyNet(nn.Module):",
         "    def __init__(self):", "        self.fc1 = nn.Linear(4, 8)",
@@ -14,7 +19,10 @@ def test_detects_layers(tmp_path):
     assert len(r.nodes)>=3
     assert any(x["name"]=="TinyNet" for x in r.models)
 
-def test_skips_node_modules(tmp_path):
+def test_skips_node_modules(tmp_path=None):
+    if tmp_path is None:
+        with tempfile.TemporaryDirectory() as td:
+            return test_skips_node_modules(Path(td))
     (tmp_path/"node_modules").mkdir()
     (tmp_path/"node_modules"/"model.py").write_text("nn.Linear(2,2)")
     (tmp_path/"app.js").write_text("const a = 1")

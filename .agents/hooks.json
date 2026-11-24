@@ -4,7 +4,7 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "d:\\vidclip\\.venv\\Scripts\\python.exe d:\\vidclip\\scripts\\ensure_daemon_running.py"
+        "command": "python scripts/ensure_daemon_running.py"
       }
     ]
   }

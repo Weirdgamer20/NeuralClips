@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 REVIEW_DIR = BASE_DIR / "storage" / "review_cuts"

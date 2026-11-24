@@ -1,10 +1,10 @@
 import sys
-sys.path.insert(0, "d:/vidclip")
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import cv2
 from pathlib import Path
 from core.opencv_retention_engine import OpenCVRetentionEngine
 
-vpath = "d:/vidclip/storage/review_cuts/indian_triggered_insaan.mp4"
+vpath = str(BASE_DIR / "storage" / "review_cuts/indian_triggered_insaan.mp4")
 engine = OpenCVRetentionEngine()
 facecam_box = engine.detect_exact_facecam(vpath, max_check_seconds=90.0)
 

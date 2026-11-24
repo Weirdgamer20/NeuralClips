@@ -1,5 +1,6 @@
+from pathlib import Path
 import sys
-sys.path.insert(0, "d:/vidclip")
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from scripts.antigravity_chrome_mcp import call_mcp, navigate, get_page_snapshot
 
 def inspect_joined_clipup():
@@ -9,7 +10,7 @@ def inspect_joined_clipup():
     import time
     time.sleep(3)
     snap = get_page_snapshot(4)
-    with open("d:/vidclip/storage/clipup_campaign_snapshot.txt", "w", encoding="utf-8") as f:
+    with open(str(BASE_DIR / "storage" / "clipup_campaign_snapshot.txt"), "w", encoding="utf-8") as f:
         f.write(snap)
     print(f"Saved snapshot ({len(snap)} bytes) to storage/clipup_campaign_snapshot.txt")
     for line in snap.splitlines():

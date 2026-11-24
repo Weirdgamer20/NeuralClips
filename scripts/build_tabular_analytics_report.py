@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-with open('d:/vidclip/storage/all_uploaded_clips_analytics_latest.json', 'r', encoding='utf-8') as f:
+with open(str(BASE_DIR / "storage" / "all_uploaded_clips_analytics_latest.json"), 'r', encoding='utf-8') as f:
     records = json.load(f)
 
 md_path = Path('C:/Users/thega/.gemini/antigravity/brain/cc9214c0-7f61-456a-b5aa-8cae3dbac8e4/all_uploaded_clips_analytics_table.md')

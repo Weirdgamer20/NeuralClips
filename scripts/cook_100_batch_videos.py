@@ -15,7 +15,7 @@ import json
 import time
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from rendering.clip_extractor import ClipExtractor

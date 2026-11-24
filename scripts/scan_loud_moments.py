@@ -1,3 +1,5 @@
+import os
+import shutil
 """Scans downloaded videos for top high-energy windows using audio volume metrics.
 """
 
@@ -18,7 +20,7 @@ def get_peak_windows(file_path):
     step = 20
     for start in range(0, min(dur - 22, 350), step):
         cmd = [
-            "d:/vidclip/.venv/Scripts/ffmpeg.exe",
+            (shutil.which("ffmpeg") or os.getenv("FFMPEG_PATH") or str(Path(sys.prefix) / "Scripts" / "ffmpeg.exe")),
             "-ss", str(start),
             "-t", "22",
             "-i", file_path,

@@ -1,3 +1,5 @@
+import sys
+import shutil
 """Batch Cooker for True 2K Vertical Masters (1440x2560 @ 60 FPS) from 4K / 1440p Sources.
 
 Features:
@@ -14,16 +16,16 @@ import subprocess
 import json
 from pathlib import Path
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE_DIR / "storage" / "2k_master_cuts"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-FFMPEG = "D:/vidclip/.venv/Scripts/ffmpeg.exe"
+FFMPEG = (shutil.which("ffmpeg") or os.getenv("FFMPEG_PATH") or str(Path(sys.prefix) / "Scripts" / "ffmpeg.exe"))
 
 CLIPS = [
     {
         "id": "2k_master_01",
-        "source": "d:/vidclip/storage/review_cuts/speed_gta6_trailer_4k.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/speed_gta6_trailer_4k.webm"),
         "crop": "1215:2160:(in_w-1215)/2:0",
         "ss": "10",
         "t": "35",
@@ -32,7 +34,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_02",
-        "source": "d:/vidclip/storage/review_cuts/speed_gta6_trailer_4k.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/speed_gta6_trailer_4k.webm"),
         "crop": "1215:2160:(in_w-1215)/2:0",
         "ss": "35",
         "t": "30",
@@ -41,7 +43,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_03",
-        "source": "d:/vidclip/storage/review_cuts/full_4k_supercar_chase.mp4.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/full_4k_supercar_chase.mp4.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "115",
         "t": "30",
@@ -50,7 +52,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_04",
-        "source": "d:/vidclip/storage/review_cuts/full_4k_supercar_chase.mp4.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/full_4k_supercar_chase.mp4.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "190",
         "t": "30",
@@ -59,7 +61,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_05",
-        "source": "d:/vidclip/storage/review_cuts/full_4k_supercar_chase.mp4.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/full_4k_supercar_chase.mp4.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "410",
         "t": "30",
@@ -68,7 +70,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_06",
-        "source": "d:/vidclip/storage/review_cuts/tank_6star_1440p.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/tank_6star_1440p.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "75",
         "t": "30",
@@ -77,7 +79,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_07",
-        "source": "d:/vidclip/storage/review_cuts/tank_6star_1440p.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/tank_6star_1440p.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "250",
         "t": "30",
@@ -86,7 +88,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_08",
-        "source": "d:/vidclip/storage/review_cuts/source_leonida_chase.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/source_leonida_chase.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "90",
         "t": "30",
@@ -95,7 +97,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_09",
-        "source": "d:/vidclip/storage/review_cuts/source_leonida_chase.webm",
+        "source": str(BASE_DIR / "storage" / "review_cuts/source_leonida_chase.webm"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "310",
         "t": "30",
@@ -104,7 +106,7 @@ CLIPS = [
     },
     {
         "id": "2k_master_10",
-        "source": "d:/vidclip/storage/review_cuts/source_realism_4k_sample.mp4",
+        "source": str(BASE_DIR / "storage" / "review_cuts/source_realism_4k_sample.mp4"),
         "crop": "810:1440:(in_w-810)/2:0",
         "ss": "20",
         "t": "30",

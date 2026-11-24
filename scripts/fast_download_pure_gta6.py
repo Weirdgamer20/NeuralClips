@@ -10,10 +10,10 @@ import subprocess
 import sys
 import time
 
-DATASET = r"d:\vidclip\storage\scraped_top300_gta6_shorts.json"
-OUT_DIR = r"d:\vidclip\storage\viral_100_clips"
+DATASET = str(BASE_DIR / "storage" / "scraped_top300_gta6_shorts.json")
+OUT_DIR = str(BASE_DIR / "storage" / "viral_100_clips")
 MANIFEST = os.path.join(OUT_DIR, "manifest.json")
-FFMPEG_DIR = r"d:\vidclip\.venv\Scripts"
+FFMPEG_DIR = str(BASE_DIR / ".venv\Scripts")
 
 BANNED = [
     "hulk", "spiderman", "spider-man", "potty", "kiss or save", "kiss run",

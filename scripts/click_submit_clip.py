@@ -89,7 +89,7 @@ def click_submit_clip():
         })
         res4 = recv(4)
         modal_snap = res4.get("result", {}).get("content", [{}])[0].get("text", "")
-        with open("d:/vidclip/storage/submit_modal_snapshot.txt", "w", encoding="utf-8") as f:
+        with open(str(BASE_DIR / "storage" / "submit_modal_snapshot.txt"), "w", encoding="utf-8") as f:
             f.write(modal_snap)
         print("Modal snapshot written to storage/submit_modal_snapshot.txt")
 

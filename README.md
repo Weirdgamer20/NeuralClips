@@ -9,9 +9,9 @@ NeuralClips is an autonomous gaming content production and distribution pipeline
 
 | Capability | Status | Implementation Details |
 |---|---|---|
-| **Python** | ✅ Available | Python 3.13.14 (`d:\vidclip\.venv`) |
-| **Persistent Storage** | ✅ Verified | Drive `D:\vidclip` (53.6 GB free), SQLite WAL database |
-| **Scheduled Tasks** | ✅ Supported | Antigravity `schedule` Cron (`* * * * *`, `*/5 * * * *`) & Windows `schtasks` |
+| **Python** | ✅ Available | Python 3.10+ (virtualenv recommended) |
+| **Persistent Storage** | ✅ Configurable | User-configurable storage directory & SQLite WAL database via `.env` (`MEDIA_STORAGE_DIR`, `DATABASE_PATH`) |
+| **Scheduled Tasks** | ✅ Supported | Antigravity `schedule` Cron (`* * * * *`, `*/5 * * * *`) & OS Task Scheduler |
 | **Persistent Workers** | ✅ Supported | `IsDaemon: true` / Background worker processes |
 | **FFmpeg Execution** | ⚠️ Configurable | Configured via `FFMPEG_PATH` & `FFPROBE_PATH` in `.env` (fallback simulator active) |
 | **Network & Sandboxing** | ⚠️ Governed | Host / BypassSandbox required for external YouTube / Gemini / Meta HTTP calls |
@@ -22,10 +22,25 @@ NeuralClips is an autonomous gaming content production and distribution pipeline
 
 ---
 
-## 2. Directory Architecture
+## 2. Directory Architecture & Storage Preferences
+
+### Storage & User Preferences Configuration
+NeuralClips does not enforce any fixed drive or storage location. You can store your media segments, rendered 2K clips, thumbnails, and database wherever you prefer:
+- **Default (Portable)**: Media is stored in `./storage/` and SQLite database in `./data/neuralclips.db` relative to the project root.
+- **Custom Local / External Drive / Cloud Mount**: Set `MEDIA_STORAGE_DIR` and `DATABASE_PATH` in `.env`:
+  ```env
+  # Examples:
+  # Linux/macOS:
+  # MEDIA_STORAGE_DIR=/mnt/external_drive/neuralclips/storage
+  # Windows:
+  # MEDIA_STORAGE_DIR=E:\Storage\NeuralClips
+  MEDIA_STORAGE_DIR=./storage
+  DATABASE_PATH=./data/neuralclips.db
+  ```
+All subdirectories (`storage/raw`, `storage/clips`, `storage/thumbnails`, `storage/reports`) are created and managed dynamically by `core.user_preferences`.
 
 ```
-d:\vidclip\
+neuralclips/
 ├── config/
 │   ├── settings.yaml            # Pipeline thresholds, video specs, and scheduling crons
 │   ├── creators.yaml            # Rights authorization registry (channels, permissions, crop profiles)
@@ -99,7 +114,7 @@ d:\vidclip\
 ### Step 1: Submit 5 Daily URLs
 Every morning, run the intake job with five YouTube livestream or VOD URLs:
 ```bash
-d:\vidclip\.venv\Scripts\python.exe jobs/daily_intake.py \
+python jobs/daily_intake.py \
   "https://www.youtube.com/watch?v=VIDEO_ID_1" \
   "https://www.youtube.com/watch?v=VIDEO_ID_2" \
   "https://www.youtube.com/watch?v=VIDEO_ID_3" \
@@ -126,10 +141,10 @@ The scheduled background jobs autonomously take over:
 To interact directly with the agent review queue or export segments:
 ```bash
 # Automatically analyze all pending segments using Antigravity Agent AI
-d:\vidclip\.venv\Scripts\python.exe jobs/agent_ai_review.py --auto
+python jobs/agent_ai_review.py --auto
 
 # Or export pending segments for interactive agent inspection:
-d:\vidclip\.venv\Scripts\python.exe jobs/agent_ai_review.py --export
+python jobs/agent_ai_review.py --export
 ```
 
 ---
@@ -139,13 +154,13 @@ d:\vidclip\.venv\Scripts\python.exe jobs/agent_ai_review.py --export
 To run automated scheduled execution on Windows, configure Windows Task Scheduler commands:
 
 ```cmd
-schtasks /Create /SC MINUTE /MO 1  /TN "NeuralClips_MonitorSources"    /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.monitor_sources" /F
-schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_ProcessMedia"      /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.process_media" /F
-schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_AnalyzeHighlights" /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.analyze_highlights" /F
-schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_RenderClips"       /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.render_clips" /F
-schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_PublishYouTube"    /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.publish_youtube" /F
-schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_PublishInstagram"  /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.publish_instagram" /F
-schtasks /Create /SC MINUTE /MO 15 /TN "NeuralClips_DailyMaintenance"  /TR "d:\vidclip\.venv\Scripts\python.exe -m jobs.daily_maintenance" /F
+schtasks /Create /SC MINUTE /MO 1  /TN "NeuralClips_MonitorSources"    /TR "python -m jobs.monitor_sources" /F
+schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_ProcessMedia"      /TR "python -m jobs.process_media" /F
+schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_AnalyzeHighlights" /TR "python -m jobs.analyze_highlights" /F
+schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_RenderClips"       /TR "python -m jobs.render_clips" /F
+schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_PublishYouTube"    /TR "python -m jobs.publish_youtube" /F
+schtasks /Create /SC MINUTE /MO 5  /TN "NeuralClips_PublishInstagram"  /TR "python -m jobs.publish_instagram" /F
+schtasks /Create /SC MINUTE /MO 15 /TN "NeuralClips_DailyMaintenance"  /TR "python -m jobs.daily_maintenance" /F
 ```
 
 ---
@@ -154,7 +169,7 @@ schtasks /Create /SC MINUTE /MO 15 /TN "NeuralClips_DailyMaintenance"  /TR "d:\v
 
 Run the full automated test suite anytime:
 ```bash
-d:\vidclip\.venv\Scripts\python.exe tests/run_tests.py
+python tests/run_tests.py
 ```
 All 14 tests verify:
 - 5-source intake validation and canonical video ID parsing

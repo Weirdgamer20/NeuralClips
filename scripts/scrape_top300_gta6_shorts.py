@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 
-OUTPUT_FILE = r"d:\vidclip\storage\scraped_top300_gta6_shorts.json"
+OUTPUT_FILE = str(BASE_DIR / "storage" / "scraped_top300_gta6_shorts.json")
 
 FEEDS = [
     "https://www.youtube.com/hashtag/gta6/shorts",

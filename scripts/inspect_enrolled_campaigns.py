@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "d:/vidclip")
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from scripts.antigravity_chrome_mcp import call_mcp, get_page_snapshot, click, fill, navigate
 
 def main():

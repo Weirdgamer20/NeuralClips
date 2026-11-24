@@ -2,7 +2,7 @@
 Antigravity Chrome MCP Bridge
 =============================
 Author: Antigravity AI
-Workspace: d:\\vidclip
+Workspace: NeuralClips repository
 
 Direct programmatic control of Google Chrome through Chrome DevTools MCP.
 Automatically detects running Chrome with remote debugging on port 9222.

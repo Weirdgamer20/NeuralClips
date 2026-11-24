@@ -16,7 +16,7 @@ import urllib.error
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from core.env_loader import load_env

@@ -13,7 +13,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-STORAGE_DIR = Path(r"d:\vidclip\storage")
+STORAGE_DIR = Path(str(BASE_DIR / "storage"))
 MANIFEST_FILE = STORAGE_DIR / "batch_experiment_manifest.json"
 
 # 20 Distinct Seed Audience Hypotheses

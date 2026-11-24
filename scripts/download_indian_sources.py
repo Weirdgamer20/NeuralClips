@@ -1,3 +1,5 @@
+import sys
+import shutil
 import subprocess
 import imageio_ffmpeg
 from pathlib import Path
@@ -6,8 +8,8 @@ ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
 ffmpeg_dir = str(Path(ffmpeg_exe).parent)
 
 targets = [
-    ("https://www.youtube.com/watch?v=vRuW2WG8AnA", "d:/vidclip/storage/review_cuts/indian_techno_gamerz.mp4"),
-    ("https://www.youtube.com/watch?v=r4PmiWxkXJ8", "d:/vidclip/storage/review_cuts/indian_carryminati.mp4")
+    ("https://www.youtube.com/watch?v=vRuW2WG8AnA", str(BASE_DIR / "storage" / "review_cuts/indian_techno_gamerz.mp4")),
+    ("https://www.youtube.com/watch?v=r4PmiWxkXJ8", str(BASE_DIR / "storage" / "review_cuts/indian_carryminati.mp4"))
 ]
 
 for url, out_path in targets:
@@ -16,7 +18,7 @@ for url, out_path in targets:
         continue
     print(f"Downloading: {url} -> {out_path}", flush=True)
     cmd = [
-        "d:/vidclip/.venv/Scripts/yt-dlp.exe",
+        (shutil.which("yt-dlp") or str(Path(sys.prefix) / "Scripts" / "yt-dlp.exe")),
         "--ffmpeg-location", ffmpeg_dir,
         "-f", "bestvideo[height<=1080]+bestaudio/best[height<=1080]",
         "--merge-output-format", "mp4",

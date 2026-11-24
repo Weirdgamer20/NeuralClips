@@ -11,9 +11,9 @@ import sys
 import time
 from typing import Any, Dict, List, Set
 
-OUTPUT_DIR = r"d:\vidclip\storage\viral_100_clips"
+OUTPUT_DIR = str(BASE_DIR / "storage" / "viral_100_clips")
 MANIFEST_FILE = os.path.join(OUTPUT_DIR, "manifest.json")
-FFMPEG_DIR = r"d:\vidclip\.venv\Scripts"
+FFMPEG_DIR = str(BASE_DIR / ".venv\Scripts")
 
 SEARCH_QUERIES = [
     "https://www.youtube.com/hashtag/gta6/shorts",

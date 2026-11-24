@@ -6,12 +6,12 @@ from pathlib import Path
 ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
 
 sources = {
-    "techno_gamerz": "d:/vidclip/storage/review_cuts/indian_techno_gamerz.mp4",
-    "carryminati": "d:/vidclip/storage/review_cuts/indian_carryminati.mp4",
-    "triggered_insaan": "d:/vidclip/storage/review_cuts/indian_triggered_insaan.mp4"
+    "techno_gamerz": str(BASE_DIR / "storage" / "review_cuts/indian_techno_gamerz.mp4"),
+    "carryminati": str(BASE_DIR / "storage" / "review_cuts/indian_carryminati.mp4"),
+    "triggered_insaan": str(BASE_DIR / "storage" / "review_cuts/indian_triggered_insaan.mp4")
 }
 
-detector = cv2.FaceDetectorYN_create("d:/vidclip/models/face_detection_yunet.onnx", "", (1920, 1080), score_threshold=0.55)
+detector = cv2.FaceDetectorYN_create(str(BASE_DIR / "models/face_detection_yunet.onnx"), "", (1920, 1080), score_threshold=0.55)
 
 for name, path in sources.items():
     print(f"\n=======================================================")

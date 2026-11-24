@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 import json
 import sys
@@ -12,7 +13,7 @@ results = {}
 
 for creator, q in queries:
     cmd = [
-        "d:/vidclip/.venv/Scripts/yt-dlp.exe",
+        (shutil.which("yt-dlp") or str(Path(sys.prefix) / "Scripts" / "yt-dlp.exe")),
         "--dump-json",
         "--flat-playlist",
         q

@@ -1,6 +1,7 @@
 """Media Downloader for YouTube stream slices via yt-dlp."""
 
 import os
+import sys
 import shutil
 from typing import Optional
 import yt_dlp
@@ -25,7 +26,8 @@ class MediaDownloader:
         if os.path.exists(output_path) and os.path.getsize(output_path) > 100000:
             return True
 
-        ffmpeg_bin = ffmpeg_path or shutil.which("ffmpeg") or r"d:\vidclip\.venv\Scripts\ffmpeg.exe"
+        default_venv_ffmpeg = os.path.join(sys.prefix, "Scripts" if os.name == "nt" else "bin", "ffmpeg.exe" if os.name == "nt" else "ffmpeg")
+        ffmpeg_bin = ffmpeg_path or os.getenv("FFMPEG_PATH") or shutil.which("ffmpeg") or (default_venv_ffmpeg if os.path.exists(default_venv_ffmpeg) else "ffmpeg")
         ffmpeg_dir = os.path.dirname(ffmpeg_bin) if os.path.isfile(ffmpeg_bin) else ffmpeg_bin
         if ffmpeg_dir and ffmpeg_dir not in os.environ.get("PATH", ""):
             os.environ["PATH"] = ffmpeg_dir + os.pathsep + os.environ.get("PATH", "")

@@ -4,7 +4,7 @@ from pathlib import Path
 
 ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
 
-OUT_DIR = Path("d:/vidclip/storage/review_cuts")
+OUT_DIR = Path(str(BASE_DIR / "storage" / "review_cuts"))
 
 # Test Techno Gamerz (Facecam at x:0, y:760, w:380, h:320 -> bottom 40%; Gameplay center -> top 60%)
 # In 1920x1080 input:
@@ -14,7 +14,7 @@ OUT_DIR = Path("d:/vidclip/storage/review_cuts")
 cmd_techno = [
     ffmpeg, "-y",
     "-ss", "70",
-    "-i", "d:/vidclip/storage/review_cuts/indian_techno_gamerz.mp4",
+    "-i", str(BASE_DIR / "storage" / "review_cuts/indian_techno_gamerz.mp4"),
     "-t", "5",
     "-filter_complex",
     "[0:v]crop=800:1080:560:0,scale=1080:1152:flags=lanczos[top];"
@@ -25,7 +25,7 @@ cmd_techno = [
     "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
     "-c:a", "aac", "-b:a", "192k",
     "-avoid_negative_ts", "make_zero", "-async", "1",
-    "d:/vidclip/storage/review_cuts/test_techno_stack.mp4"
+    str(BASE_DIR / "storage" / "review_cuts/test_techno_stack.mp4")
 ]
 
 print("Rendering Techno test clip...")
@@ -36,7 +36,7 @@ print("Techno test rendered!")
 cmd_carry = [
     ffmpeg, "-y",
     "-ss", "50",
-    "-i", "d:/vidclip/storage/review_cuts/indian_carryminati.mp4",
+    "-i", str(BASE_DIR / "storage" / "review_cuts/indian_carryminati.mp4"),
     "-t", "5",
     "-filter_complex",
     "[0:v]crop=800:1080:560:0,scale=1080:1152:flags=lanczos[top];"
@@ -47,7 +47,7 @@ cmd_carry = [
     "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
     "-c:a", "aac", "-b:a", "192k",
     "-avoid_negative_ts", "make_zero", "-async", "1",
-    "d:/vidclip/storage/review_cuts/test_carry_stack.mp4"
+    str(BASE_DIR / "storage" / "review_cuts/test_carry_stack.mp4")
 ]
 
 print("Rendering CarryMinati test clip...")
@@ -58,7 +58,7 @@ print("Carry test rendered!")
 cmd_triggered = [
     ffmpeg, "-y",
     "-ss", "80",
-    "-i", "d:/vidclip/storage/review_cuts/indian_triggered_insaan.mp4",
+    "-i", str(BASE_DIR / "storage" / "review_cuts/indian_triggered_insaan.mp4"),
     "-t", "5",
     "-filter_complex",
     "[0:v]crop=800:1080:560:0,scale=1080:1152:flags=lanczos[top];"
@@ -69,7 +69,7 @@ cmd_triggered = [
     "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
     "-c:a", "aac", "-b:a", "192k",
     "-avoid_negative_ts", "make_zero", "-async", "1",
-    "d:/vidclip/storage/review_cuts/test_triggered_stack.mp4"
+    str(BASE_DIR / "storage" / "review_cuts/test_triggered_stack.mp4")
 ]
 
 print("Rendering Triggered Insaan test clip...")

@@ -11,10 +11,10 @@ import sys
 import time
 from typing import Any, Dict, List
 
-DATASET_FILE = r"d:\vidclip\storage\scraped_top300_gta6_shorts.json"
-OUTPUT_DIR = r"d:\vidclip\storage\viral_100_clips"
+DATASET_FILE = str(BASE_DIR / "storage" / "scraped_top300_gta6_shorts.json")
+OUTPUT_DIR = str(BASE_DIR / "storage" / "viral_100_clips")
 MANIFEST_FILE = os.path.join(OUTPUT_DIR, "manifest.json")
-FFMPEG_DIR = r"d:\vidclip\.venv\Scripts"
+FFMPEG_DIR = str(BASE_DIR / ".venv\Scripts")
 
 
 def download_100_viral_clips(max_clips: int = 100):

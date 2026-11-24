@@ -5,7 +5,7 @@ import json
 import urllib.request
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path("d:/vidclip")))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from core.env_loader import load_env
 load_env()

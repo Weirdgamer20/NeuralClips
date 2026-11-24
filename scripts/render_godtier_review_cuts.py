@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 REVIEW_DIR = BASE_DIR / "storage" / "review_cuts"
 REVIEW_DIR.mkdir(parents=True, exist_ok=True)
 FFMPEG = str(BASE_DIR / ".venv" / "Scripts" / "ffmpeg.exe")

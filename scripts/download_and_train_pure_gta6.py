@@ -1,3 +1,4 @@
+import shutil
 """Autonomous Pure GTA 6 Downloader & Style DNA Training Engine.
 
 Downloads top 100 pure GTA 6 viral clips (no GTA 5 / mods / cartoons),
@@ -13,13 +14,13 @@ import subprocess
 import statistics
 from pathlib import Path
 
-STORAGE_DIR = Path(r"d:\vidclip\storage")
+STORAGE_DIR = Path(str(BASE_DIR / "storage"))
 OUT_DIR = STORAGE_DIR / "viral_100_clips"
 MANIFEST_PATH = OUT_DIR / "manifest.json"
 CANDIDATES_PATH = STORAGE_DIR / "candidates_pure_gta6.json"
 STYLE_DNA_PATH = STORAGE_DIR / "viral_style_dna.json"
-FFMPEG_EXE = r"d:\vidclip\.venv\Scripts\ffmpeg.exe"
-FFPROBE_EXE = r"d:\vidclip\.venv\Scripts\ffprobe.exe"
+FFMPEG_EXE = r(shutil.which("ffmpeg") or os.getenv("FFMPEG_PATH") or str(Path(sys.prefix) / "Scripts" / "ffmpeg.exe"))
+FFPROBE_EXE = str(BASE_DIR / ".venv\Scripts\ffprobe.exe")
 
 
 def download_clip(candidate, idx, total):
@@ -48,7 +49,7 @@ def download_clip(candidate, idx, total):
     cmd = [
         sys.executable, "-m", "yt_dlp",
         url,
-        "--ffmpeg-location", r"d:\vidclip\.venv\Scripts",
+        "--ffmpeg-location", str(BASE_DIR / ".venv\Scripts"),
         "-f", "bestvideo[height<=720]+bestaudio/best[height<=720]/best",
         "-o", str(out_file),
         "--merge-output-format", "mp4",

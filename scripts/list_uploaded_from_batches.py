@@ -1,7 +1,7 @@
 import json
 
 def main():
-    with open("d:/vidclip/storage/famous_streamers_manifest.json", "r", encoding="utf-8") as f:
+    with open(str(BASE_DIR / "storage" / "famous_streamers_manifest.json"), "r", encoding="utf-8") as f:
         data = json.load(f)
     
     batches = data.get("batches", [])

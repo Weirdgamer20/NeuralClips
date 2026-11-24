@@ -12,7 +12,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from config.slices_ishowspeed_manifest import WAVES, SOURCE_STREAM, OUTPUT_DIR, THUMB_DIR

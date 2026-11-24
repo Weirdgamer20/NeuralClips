@@ -3,9 +3,12 @@ Auto-generated for exact 30-minute cadence and 100% daily YouTube upload quota s
 """
 
 from pathlib import Path
+from core.user_preferences import get_storage_dir
 
-OUTPUT_DIR = r"d:\vidclip\storage\batch_ishowspeed"
-THUMB_DIR = r"d:\vidclip\storage\thumbnails_speed"
+OUTPUT_DIR = str(get_storage_dir("batch_ishowspeed"))
+THUMB_DIR = str(get_storage_dir("thumbnails_speed"))
+SOURCE_STREAM = str(get_storage_dir("review_cuts") / "source_speed_stream_36min.mp4")
+SOURCE_STREAM_PART2 = str(get_storage_dir("review_cuts") / "source_speed_stream_part2.mp4")
 
 WAVES = [
   {
@@ -17,7 +20,7 @@ WAVES = [
       {
         "id": "speed_clip_001",
         "index": 1,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 0.0,
         "duration": 90.0,
         "hook_title": "SPEED FIRST GTA 6 COP CHASE \ud83d\ude93\ud83d\udc80",
@@ -36,7 +39,7 @@ WAVES = [
       {
         "id": "speed_clip_002",
         "index": 2,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 90.0,
         "duration": 90.0,
         "hook_title": "SPEED HYPERCAR CRASH IN VICE CITY \ud83c\udfce\ufe0f\ud83d\udca5",
@@ -55,7 +58,7 @@ WAVES = [
       {
         "id": "speed_clip_003",
         "index": 3,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 180.0,
         "duration": 90.0,
         "hook_title": "SPEED VS VICE CITY POLICE SWAT \ud83d\udd2b\ud83d\ude31",
@@ -74,7 +77,7 @@ WAVES = [
       {
         "id": "speed_clip_004",
         "index": 4,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 270.0,
         "duration": 90.0,
         "hook_title": "SPEED FOUND SECRET WEAPON IN GTA 6 \ud83d\udca3\ud83d\udd25",
@@ -93,7 +96,7 @@ WAVES = [
       {
         "id": "speed_clip_005",
         "index": 5,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 360.0,
         "duration": 90.0,
         "hook_title": "SPEED ACCIDENTALLY JUMPS OFF BRIDGE \ud83c\udf09\ud83d\ude2d",
@@ -112,7 +115,7 @@ WAVES = [
       {
         "id": "speed_clip_006",
         "index": 6,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 450.0,
         "duration": 90.0,
         "hook_title": "SPEED ESCAPES 5-STAR WANTED LEVEL \ud83d\udd25\ud83c\udfc3",
@@ -139,7 +142,7 @@ WAVES = [
       {
         "id": "speed_clip_007",
         "index": 7,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 540.0,
         "duration": 90.0,
         "hook_title": "SPEED FINDS SECRET UNDERGROUND CLUB \ud83d\ude33\ud83d\udd7a",
@@ -158,7 +161,7 @@ WAVES = [
       {
         "id": "speed_clip_008",
         "index": 8,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 630.0,
         "duration": 90.0,
         "hook_title": "SPEED STEALS A MILITARY TANK \ud83e\ude96\ud83d\udca5",
@@ -177,7 +180,7 @@ WAVES = [
       {
         "id": "speed_clip_009",
         "index": 9,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 720.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES TO FLY A HELICOPTER \ud83d\ude81\ud83d\udc80",
@@ -196,7 +199,7 @@ WAVES = [
       {
         "id": "speed_clip_010",
         "index": 10,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 810.0,
         "duration": 90.0,
         "hook_title": "SPEED RAGES AT GTA 6 PHYSICS \ud83d\ude2d\ud83d\udca2",
@@ -215,7 +218,7 @@ WAVES = [
       {
         "id": "speed_clip_011",
         "index": 11,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 900.0,
         "duration": 90.0,
         "hook_title": "SPEED FASTEST MOTORCYCLE STUNT \ud83c\udfcd\ufe0f\ud83d\udca8",
@@ -234,7 +237,7 @@ WAVES = [
       {
         "id": "speed_clip_012",
         "index": 12,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 990.0,
         "duration": 90.0,
         "hook_title": "SPEED MEETS LUCIA IN VICE CITY \ud83d\ude02\u2764\ufe0f",
@@ -261,7 +264,7 @@ WAVES = [
       {
         "id": "speed_clip_013",
         "index": 13,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1080.0,
         "duration": 90.0,
         "hook_title": "SPEED ATTEMPTS FLEECA BANK HEIST \ud83c\udfe6\ud83d\udcb0",
@@ -280,7 +283,7 @@ WAVES = [
       {
         "id": "speed_clip_014",
         "index": 14,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1170.0,
         "duration": 90.0,
         "hook_title": "SPEED VS 100 VICE CITY COPS \ud83d\ude93\ud83d\udc80",
@@ -299,7 +302,7 @@ WAVES = [
       {
         "id": "speed_clip_015",
         "index": 15,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1260.0,
         "duration": 90.0,
         "hook_title": "SPEED SURVIVES PLANE CRASH \u2708\ufe0f\ud83d\udca5",
@@ -318,7 +321,7 @@ WAVES = [
       {
         "id": "speed_clip_016",
         "index": 16,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1350.0,
         "duration": 90.0,
         "hook_title": "SPEED FINDS GOLDEN SUPERCAR \ud83c\udfce\ufe0f\u2728",
@@ -337,7 +340,7 @@ WAVES = [
       {
         "id": "speed_clip_017",
         "index": 17,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1440.0,
         "duration": 90.0,
         "hook_title": "SPEED LOSES HIS CAR IN THE WATER \ud83c\udf0a\ud83d\ude97",
@@ -356,7 +359,7 @@ WAVES = [
       {
         "id": "speed_clip_018",
         "index": 18,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1530.0,
         "duration": 90.0,
         "hook_title": "SPEED UNLOCKS 6-STAR MILITARY BASE \ud83e\ude96\ud83d\udea8",
@@ -383,7 +386,7 @@ WAVES = [
       {
         "id": "speed_clip_019",
         "index": 19,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1620.0,
         "duration": 90.0,
         "hook_title": "SPEED JUMPS SUPERCAR OFF SKYSCRAPER \ud83c\udfe2\ud83c\udfce\ufe0f",
@@ -402,7 +405,7 @@ WAVES = [
       {
         "id": "speed_clip_020",
         "index": 20,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1710.0,
         "duration": 90.0,
         "hook_title": "SPEED CONFRONTS THE MAFIA BOSS \ud83d\udd2b\ud83d\ude28",
@@ -421,7 +424,7 @@ WAVES = [
       {
         "id": "speed_clip_021",
         "index": 21,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1800.0,
         "duration": 90.0,
         "hook_title": "SPEED SPEEDRUNS VICE CITY HIGHWAY \ud83d\udee3\ufe0f\u26a1",
@@ -440,7 +443,7 @@ WAVES = [
       {
         "id": "speed_clip_022",
         "index": 22,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1890.0,
         "duration": 90.0,
         "hook_title": "SPEED DISCOVERS SECRET MILITARY BUNKER \ud83e\udd2b\ud83d\udee1\ufe0f",
@@ -459,7 +462,7 @@ WAVES = [
       {
         "id": "speed_clip_023",
         "index": 23,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 1980.0,
         "duration": 90.0,
         "hook_title": "SPEED HIGHEST BOUNTY IN GTA 6 \ud83d\udcb0\ud83d\udea8",
@@ -478,7 +481,7 @@ WAVES = [
       {
         "id": "speed_clip_024",
         "index": 24,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_36min.mp4",
+        "source_file": SOURCE_STREAM,
         "start_sec": 2070.0,
         "duration": 90.0,
         "hook_title": "SPEED FINAL ESCAPE FROM VICE CITY \ud83d\udd25\ud83d\udee5\ufe0f",
@@ -505,7 +508,7 @@ WAVES = [
       {
         "id": "speed_clip_025",
         "index": 25,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 0.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES TO PARK A YACHT \ud83d\udee5\ufe0f\ud83d\ude02",
@@ -524,7 +527,7 @@ WAVES = [
       {
         "id": "speed_clip_026",
         "index": 26,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 90.0,
         "duration": 90.0,
         "hook_title": "SPEED STEALTH MISSION GONE WRONG \ud83e\udd77\ud83d\udca5",
@@ -543,7 +546,7 @@ WAVES = [
       {
         "id": "speed_clip_027",
         "index": 27,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 180.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING CAR HYDRAULICS \ud83d\ude97\ud83d\udd0a",
@@ -562,7 +565,7 @@ WAVES = [
       {
         "id": "speed_clip_028",
         "index": 28,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 270.0,
         "duration": 90.0,
         "hook_title": "SPEED ESCAPING POLICE IN A BUS \ud83d\ude8c\ud83d\udc80",
@@ -589,7 +592,7 @@ WAVES = [
       {
         "id": "speed_clip_029",
         "index": 29,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 360.0,
         "duration": 90.0,
         "hook_title": "SPEED RACING THE FASTEST NPC \ud83c\udfce\ufe0f\ud83c\udfc1",
@@ -608,7 +611,7 @@ WAVES = [
       {
         "id": "speed_clip_030",
         "index": 30,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 450.0,
         "duration": 90.0,
         "hook_title": "SPEED AT THE AIRPORT RUNWAY \ud83d\udee9\ufe0f\ud83d\udd25",
@@ -627,7 +630,7 @@ WAVES = [
       {
         "id": "speed_clip_031",
         "index": 31,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 540.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES SUBMARINE EXPLORATION \ud83c\udf0a\ud83e\udd3f",
@@ -646,7 +649,7 @@ WAVES = [
       {
         "id": "speed_clip_032",
         "index": 32,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 630.0,
         "duration": 90.0,
         "hook_title": "SPEED VS ALLIGATORS IN THE SWAMP \ud83d\udc0a\ud83d\ude31",
@@ -673,7 +676,7 @@ WAVES = [
       {
         "id": "speed_clip_033",
         "index": 33,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 720.0,
         "duration": 90.0,
         "hook_title": "SPEED BUYS THE MOST EXPENSIVE HOUSE \ud83c\udfe1\u2728",
@@ -692,7 +695,7 @@ WAVES = [
       {
         "id": "speed_clip_034",
         "index": 34,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 810.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIFTING IN THE RAIN \ud83c\udf27\ufe0f\ud83c\udfce\ufe0f",
@@ -711,7 +714,7 @@ WAVES = [
       {
         "id": "speed_clip_035",
         "index": 35,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 900.0,
         "duration": 90.0,
         "hook_title": "SPEED ACCIDENTALLY BLOWS UP GAS STATION \u26fd\ud83d\udca5",
@@ -730,7 +733,7 @@ WAVES = [
       {
         "id": "speed_clip_036",
         "index": 36,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 990.0,
         "duration": 90.0,
         "hook_title": "SPEED PARACHUTE LANDING ON MOVING TRAIN \ud83e\ude82\ud83d\ude82",
@@ -757,7 +760,7 @@ WAVES = [
       {
         "id": "speed_clip_037",
         "index": 37,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1080.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING ROCKET LAUNCHER ON HELIS \ud83d\ude80\ud83d\ude81",
@@ -776,7 +779,7 @@ WAVES = [
       {
         "id": "speed_clip_038",
         "index": 38,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1170.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIVING ON RAILROAD TRACKS \ud83d\ude82\ud83d\ude99",
@@ -795,7 +798,7 @@ WAVES = [
       {
         "id": "speed_clip_039",
         "index": 39,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1260.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES THE AMUSEMENT PARK \ud83c\udfa1\ud83d\ude02",
@@ -814,7 +817,7 @@ WAVES = [
       {
         "id": "speed_clip_040",
         "index": 40,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1350.0,
         "duration": 90.0,
         "hook_title": "SPEED FINDS HIDDEN MOUNTAIN BUNKER \u26f0\ufe0f\ud83d\udd0d",
@@ -841,7 +844,7 @@ WAVES = [
       {
         "id": "speed_clip_041",
         "index": 41,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1440.0,
         "duration": 90.0,
         "hook_title": "SPEED STREET RACE AT MIDNIGHT \ud83c\udf19\ud83c\udfce\ufe0f",
@@ -860,7 +863,7 @@ WAVES = [
       {
         "id": "speed_clip_042",
         "index": 42,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1530.0,
         "duration": 90.0,
         "hook_title": "SPEED VS THE STRONGEST NPC IN VICE CITY \ud83e\udd4a\ud83d\udc80",
@@ -879,7 +882,7 @@ WAVES = [
       {
         "id": "speed_clip_043",
         "index": 43,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1620.0,
         "duration": 90.0,
         "hook_title": "SPEED SURVIVES 100 FT CLIFF DROP \ud83d\ude99\ud83e\udea8",
@@ -898,7 +901,7 @@ WAVES = [
       {
         "id": "speed_clip_044",
         "index": 44,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1710.0,
         "duration": 90.0,
         "hook_title": "SPEED ROBBING A CONVENIENCE STORE \ud83c\udfea\ud83d\udcb0",
@@ -925,7 +928,7 @@ WAVES = [
       {
         "id": "speed_clip_045",
         "index": 45,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1800.0,
         "duration": 90.0,
         "hook_title": "SPEED MOTORCYCLE ROOFTOP JUMP \ud83c\udfcd\ufe0f\ud83c\udfe2",
@@ -944,7 +947,7 @@ WAVES = [
       {
         "id": "speed_clip_046",
         "index": 46,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1890.0,
         "duration": 90.0,
         "hook_title": "SPEED FIGHTING CRIME AS BATMAN \ud83e\udd87\ud83d\ude02",
@@ -963,7 +966,7 @@ WAVES = [
       {
         "id": "speed_clip_047",
         "index": 47,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 1980.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING SNIPER BULLET DROP \ud83c\udfaf\ud83d\udd2b",
@@ -982,7 +985,7 @@ WAVES = [
       {
         "id": "speed_clip_048",
         "index": 48,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2070.0,
         "duration": 90.0,
         "hook_title": "SPEED JET SKI STUNT IN HURRICANE \ud83c\udf0a\u26a1",
@@ -1009,7 +1012,7 @@ WAVES = [
       {
         "id": "speed_clip_049",
         "index": 49,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2160.0,
         "duration": 90.0,
         "hook_title": "SPEED GETTING TOWED BY POLICE \ud83d\ude9c\ud83d\ude93",
@@ -1028,7 +1031,7 @@ WAVES = [
       {
         "id": "speed_clip_050",
         "index": 50,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2250.0,
         "duration": 90.0,
         "hook_title": "SPEED CRASH TEST DUMMY PHYSICS \ud83d\ude97\ud83d\udca5",
@@ -1047,7 +1050,7 @@ WAVES = [
       {
         "id": "speed_clip_051",
         "index": 51,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2340.0,
         "duration": 90.0,
         "hook_title": "SPEED INFILTRATING MILITARY AIRBASE \ud83e\ude96\u2708\ufe0f",
@@ -1066,7 +1069,7 @@ WAVES = [
       {
         "id": "speed_clip_052",
         "index": 52,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2430.0,
         "duration": 90.0,
         "hook_title": "SPEED DOING 360 SPINS IN TRAFFIC \ud83c\udf2a\ufe0f\ud83c\udfce\ufe0f",
@@ -1093,7 +1096,7 @@ WAVES = [
       {
         "id": "speed_clip_053",
         "index": 53,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2520.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING FIRE TRUCK CANNON \ud83d\ude92\ud83d\udca6",
@@ -1112,7 +1115,7 @@ WAVES = [
       {
         "id": "speed_clip_054",
         "index": 54,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2610.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES TO FLY A CARGO PLANE \u2708\ufe0f\ud83d\udce6",
@@ -1131,7 +1134,7 @@ WAVES = [
       {
         "id": "speed_clip_055",
         "index": 55,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2700.0,
         "duration": 90.0,
         "hook_title": "SPEED RAGDOLL OFF RADIO TOWER \ud83d\uddfc\ud83d\ude31",
@@ -1150,7 +1153,7 @@ WAVES = [
       {
         "id": "speed_clip_056",
         "index": 56,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2790.0,
         "duration": 90.0,
         "hook_title": "SPEED VS SWAT ARMORED VAN \ud83d\ude90\ud83d\udca5",
@@ -1177,7 +1180,7 @@ WAVES = [
       {
         "id": "speed_clip_057",
         "index": 57,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2880.0,
         "duration": 90.0,
         "hook_title": "SPEED FINDS SECRET UNDERWATER TUNNEL \ud83d\ude87\ud83c\udf0a",
@@ -1196,7 +1199,7 @@ WAVES = [
       {
         "id": "speed_clip_058",
         "index": 58,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 2970.0,
         "duration": 90.0,
         "hook_title": "SPEED ESCAPING ON A BICYCLE \ud83d\udeb2\ud83d\ude93",
@@ -1215,7 +1218,7 @@ WAVES = [
       {
         "id": "speed_clip_059",
         "index": 59,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3060.0,
         "duration": 90.0,
         "hook_title": "SPEED RACING THE SUBWAY TRAIN \ud83d\ude87\ud83d\udca8",
@@ -1234,7 +1237,7 @@ WAVES = [
       {
         "id": "speed_clip_060",
         "index": 60,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3150.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING BULLETPROOF GLASS \ud83d\udee1\ufe0f\ud83d\ude97",
@@ -1261,7 +1264,7 @@ WAVES = [
       {
         "id": "speed_clip_061",
         "index": 61,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3240.0,
         "duration": 90.0,
         "hook_title": "SPEED ATTEMPTS CASINO HEIST \ud83c\udfb0\ud83d\udcb0",
@@ -1280,7 +1283,7 @@ WAVES = [
       {
         "id": "speed_clip_062",
         "index": 62,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3330.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIVING OFF AN AIRCRAFT CARRIER \ud83d\udea2\ud83d\ude97",
@@ -1299,7 +1302,7 @@ WAVES = [
       {
         "id": "speed_clip_063",
         "index": 63,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3420.0,
         "duration": 90.0,
         "hook_title": "SPEED VS SPECIAL FORCES TEAM \ud83c\udf96\ufe0f\ud83d\udd2b",
@@ -1318,7 +1321,7 @@ WAVES = [
       {
         "id": "speed_clip_064",
         "index": 64,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3510.0,
         "duration": 90.0,
         "hook_title": "SPEED JETPACK SECRET UNLOCKED \ud83d\ude80\u2728",
@@ -1345,7 +1348,7 @@ WAVES = [
       {
         "id": "speed_clip_065",
         "index": 65,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3600.0,
         "duration": 90.0,
         "hook_title": "SPEED HIT BY LIGHTNING IN STORM \u26a1\ud83d\ude97",
@@ -1364,7 +1367,7 @@ WAVES = [
       {
         "id": "speed_clip_066",
         "index": 66,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3690.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING FLAMETHROWER ON GANG \ud83d\udca5\ud83d\udd25",
@@ -1383,7 +1386,7 @@ WAVES = [
       {
         "id": "speed_clip_067",
         "index": 67,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3780.0,
         "duration": 90.0,
         "hook_title": "SPEED ROOFTOP HELICOPTER SNIPING \ud83d\ude81\ud83c\udfaf",
@@ -1402,7 +1405,7 @@ WAVES = [
       {
         "id": "speed_clip_068",
         "index": 68,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3870.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIFTING A SEMI TRUCK \ud83d\ude9b\ud83d\udca8",
@@ -1429,7 +1432,7 @@ WAVES = [
       {
         "id": "speed_clip_069",
         "index": 69,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 3960.0,
         "duration": 90.0,
         "hook_title": "SPEED ESCAPES PRISON ISLAND \ud83c\udfdd\ufe0f\ud83d\udea8",
@@ -1448,7 +1451,7 @@ WAVES = [
       {
         "id": "speed_clip_070",
         "index": 70,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4050.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING DESTRUCTION ENGINE \ud83c\udfe2\ud83d\udca3",
@@ -1467,7 +1470,7 @@ WAVES = [
       {
         "id": "speed_clip_071",
         "index": 71,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4140.0,
         "duration": 90.0,
         "hook_title": "SPEED SKYDIVING INTO A SUPERCAR \ud83e\ude82\ud83c\udfce\ufe0f",
@@ -1486,7 +1489,7 @@ WAVES = [
       {
         "id": "speed_clip_072",
         "index": 72,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4230.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIVING UNDERWATER WITH OXYGEN \ud83c\udf0a\ud83d\ude99",
@@ -1513,7 +1516,7 @@ WAVES = [
       {
         "id": "speed_clip_073",
         "index": 73,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4320.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING SUPERSONIC FIGHTER \u2708\ufe0f\u26a1",
@@ -1532,7 +1535,7 @@ WAVES = [
       {
         "id": "speed_clip_074",
         "index": 74,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4410.0,
         "duration": 90.0,
         "hook_title": "SPEED MEETS OLD MAN TREVOR \ud83e\uddd4\ud83d\ude02",
@@ -1551,7 +1554,7 @@ WAVES = [
       {
         "id": "speed_clip_075",
         "index": 75,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4500.0,
         "duration": 90.0,
         "hook_title": "SPEED HIGHEST AIRPORT JUMP \ud83d\udeeb\ud83c\udfce\ufe0f",
@@ -1570,7 +1573,7 @@ WAVES = [
       {
         "id": "speed_clip_076",
         "index": 76,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4590.0,
         "duration": 90.0,
         "hook_title": "SPEED RUNNING FROM A 6-STAR TANK \ud83e\ude96\ud83c\udfc3",
@@ -1597,7 +1600,7 @@ WAVES = [
       {
         "id": "speed_clip_077",
         "index": 77,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4680.0,
         "duration": 90.0,
         "hook_title": "SPEED FINDS GHOST SHIP AT NIGHT \ud83d\udc7b\ud83d\udea2",
@@ -1616,7 +1619,7 @@ WAVES = [
       {
         "id": "speed_clip_078",
         "index": 78,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4770.0,
         "duration": 90.0,
         "hook_title": "SPEED DRIVING BLINDFOLDED \ud83d\ude48\ud83d\ude97",
@@ -1635,7 +1638,7 @@ WAVES = [
       {
         "id": "speed_clip_079",
         "index": 79,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4860.0,
         "duration": 90.0,
         "hook_title": "SPEED VS HELICOPTER ROTOR BLADES \ud83d\ude81\ud83d\udc80",
@@ -1654,7 +1657,7 @@ WAVES = [
       {
         "id": "speed_clip_080",
         "index": 80,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 4950.0,
         "duration": 90.0,
         "hook_title": "SPEED RACING FORMULA 1 CAR \ud83c\udfce\ufe0f\ud83c\udfc1",
@@ -1681,7 +1684,7 @@ WAVES = [
       {
         "id": "speed_clip_081",
         "index": 81,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5040.0,
         "duration": 90.0,
         "hook_title": "SPEED SURVIVES 5-STAR WATER CANNON \ud83c\udf0a\ud83d\ude93",
@@ -1700,7 +1703,7 @@ WAVES = [
       {
         "id": "speed_clip_082",
         "index": 82,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5130.0,
         "duration": 90.0,
         "hook_title": "SPEED UNLOCKS SECRET GOLDEN GUN \ud83d\udd2b\u2728",
@@ -1719,7 +1722,7 @@ WAVES = [
       {
         "id": "speed_clip_083",
         "index": 83,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5220.0,
         "duration": 90.0,
         "hook_title": "SPEED CRASHES INTO A WEDDING \ud83d\udc92\ud83d\ude02",
@@ -1738,7 +1741,7 @@ WAVES = [
       {
         "id": "speed_clip_084",
         "index": 84,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5310.0,
         "duration": 90.0,
         "hook_title": "SPEED SPEEDRUNNING MISSION IN 60S \u23f1\ufe0f\u26a1",
@@ -1765,7 +1768,7 @@ WAVES = [
       {
         "id": "speed_clip_085",
         "index": 85,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5400.0,
         "duration": 90.0,
         "hook_title": "SPEED ACCIDENTALLY CALLS 911 ON HIMSELF \ud83d\udcde\ud83d\ude93",
@@ -1784,7 +1787,7 @@ WAVES = [
       {
         "id": "speed_clip_086",
         "index": 86,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5490.0,
         "duration": 90.0,
         "hook_title": "SPEED TRIES HOVERCRAFT IN SWAMP \ud83d\udea4\ud83d\udc0a",
@@ -1803,7 +1806,7 @@ WAVES = [
       {
         "id": "speed_clip_087",
         "index": 87,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5580.0,
         "duration": 90.0,
         "hook_title": "SPEED HIGH SPEED FREEWAY PURSUIT \ud83d\udee3\ufe0f\ud83d\ude93",
@@ -1822,7 +1825,7 @@ WAVES = [
       {
         "id": "speed_clip_088",
         "index": 88,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5670.0,
         "duration": 90.0,
         "hook_title": "SPEED TESTING LASER CANNON \ud83d\udef8\ud83d\udca5",
@@ -1849,7 +1852,7 @@ WAVES = [
       {
         "id": "speed_clip_089",
         "index": 89,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5760.0,
         "duration": 90.0,
         "hook_title": "SPEED JUMPS INTO THE SUNSET \ud83c\udf05\ud83c\udfce\ufe0f",
@@ -1868,7 +1871,7 @@ WAVES = [
       {
         "id": "speed_clip_090",
         "index": 90,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5850.0,
         "duration": 90.0,
         "hook_title": "SPEED GRAND FINALE ESCAPE TO 1 AM \ud83c\udf86\ud83d\udee5\ufe0f",
@@ -1887,7 +1890,7 @@ WAVES = [
       {
         "id": "speed_clip_091",
         "index": 91,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 5940.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #91 \ud83d\udc80\ud83d\udd25",
@@ -1914,7 +1917,7 @@ WAVES = [
       {
         "id": "speed_clip_092",
         "index": 92,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6030.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #92 \ud83d\udc80\ud83d\udd25",
@@ -1933,7 +1936,7 @@ WAVES = [
       {
         "id": "speed_clip_093",
         "index": 93,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6120.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #93 \ud83d\udc80\ud83d\udd25",
@@ -1952,7 +1955,7 @@ WAVES = [
       {
         "id": "speed_clip_094",
         "index": 94,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6210.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #94 \ud83d\udc80\ud83d\udd25",
@@ -1979,7 +1982,7 @@ WAVES = [
       {
         "id": "speed_clip_095",
         "index": 95,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6300.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #95 \ud83d\udc80\ud83d\udd25",
@@ -1998,7 +2001,7 @@ WAVES = [
       {
         "id": "speed_clip_096",
         "index": 96,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6390.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #96 \ud83d\udc80\ud83d\udd25",
@@ -2017,7 +2020,7 @@ WAVES = [
       {
         "id": "speed_clip_097",
         "index": 97,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6480.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #97 \ud83d\udc80\ud83d\udd25",
@@ -2044,7 +2047,7 @@ WAVES = [
       {
         "id": "speed_clip_098",
         "index": 98,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6570.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #98 \ud83d\udc80\ud83d\udd25",
@@ -2063,7 +2066,7 @@ WAVES = [
       {
         "id": "speed_clip_099",
         "index": 99,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6660.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #99 \ud83d\udc80\ud83d\udd25",
@@ -2082,7 +2085,7 @@ WAVES = [
       {
         "id": "speed_clip_100",
         "index": 100,
-        "source_file": "d:\\vidclip\\storage\\review_cuts\\source_speed_stream_part2.mp4",
+        "source_file": SOURCE_STREAM_PART2,
         "start_sec": 6750.0,
         "duration": 90.0,
         "hook_title": "SPEED INSANE GTA 6 MOMENT #100 \ud83d\udc80\ud83d\udd25",

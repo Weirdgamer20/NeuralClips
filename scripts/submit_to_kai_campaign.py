@@ -72,7 +72,7 @@ def focus_and_inspect():
             content = msg.get("result", {}).get("content", [])
             for c in content:
                 text = c.get("text", "")
-                with open("d:/vidclip/storage/kai_snapshot_selected.txt", "w", encoding="utf-8") as f:
+                with open(str(BASE_DIR / "storage" / "kai_snapshot_selected.txt"), "w", encoding="utf-8") as f:
                     f.write(text)
                 print(f"Snapshot written: {len(text)} chars")
             break

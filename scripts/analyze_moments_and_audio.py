@@ -9,7 +9,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 REVIEW_DIR = BASE_DIR / "storage" / "review_cuts"
 FFMPEG = str(BASE_DIR / ".venv" / "Scripts" / "ffmpeg.exe")
 

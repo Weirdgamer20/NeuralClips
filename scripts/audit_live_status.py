@@ -4,7 +4,7 @@ import re
 from datetime import datetime, timezone, timedelta
 
 def check_live_status():
-    with open("d:/vidclip/storage/famous_streamers_manifest.json", "r", encoding="utf-8") as f:
+    with open(str(BASE_DIR / "storage" / "famous_streamers_manifest.json"), "r", encoding="utf-8") as f:
         data = json.load(f)
 
     now_utc = datetime.now(timezone.utc)

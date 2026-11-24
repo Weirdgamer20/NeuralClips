@@ -9,7 +9,7 @@ from pathlib import Path
 import imageio_ffmpeg
 import cv2
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from core.opencv_retention_engine import OpenCVRetentionEngine

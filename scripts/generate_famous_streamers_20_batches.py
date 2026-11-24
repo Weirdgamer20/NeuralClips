@@ -20,7 +20,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 STORAGE_DIR = BASE_DIR / "storage"
 MANIFEST_FILE = STORAGE_DIR / "famous_streamers_manifest.json"
 

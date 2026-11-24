@@ -53,7 +53,7 @@ def get_full_snapshot():
             content = msg.get("result", {}).get("content", [])
             for c in content:
                 text = c.get("text", "")
-                with open("d:/vidclip/storage/page3_snapshot.txt", "w", encoding="utf-8") as f:
+                with open(str(BASE_DIR / "storage" / "page3_snapshot.txt"), "w", encoding="utf-8") as f:
                     f.write(text)
                 print(f"Wrote {len(text)} characters to storage/page3_snapshot.txt")
             break

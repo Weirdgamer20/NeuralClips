@@ -80,7 +80,7 @@ print(f"Total qualified pure GTA 6 clips found: {len(found)}")
 m_plus = [f for f in found if f['views'] >= 1000000]
 print(f"Clips with >= 1,000,000 views: {len(m_plus)}")
 
-with open(r"d:\vidclip\storage\candidates_pure_gta6.json", "w", encoding="utf-8") as f:
+with open(str(BASE_DIR / "storage" / "candidates_pure_gta6.json"), "w", encoding="utf-8") as f:
     json.dump(found, f, indent=2)
 
-print("Saved candidates to d:\\vidclip\\storage\\candidates_pure_gta6.json")
+print("Saved candidates to storage/candidates_pure_gta6.json")

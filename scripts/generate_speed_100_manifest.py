@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-BASE_DIR = Path("d:/vidclip")
+BASE_DIR = Path(__file__).resolve().parent.parent
 MANIFEST_PY = BASE_DIR / "config" / "slices_ishowspeed_24waves_manifest.py"
 
 VIRAL_HOOKS = [
@@ -134,10 +134,10 @@ for w_idx, count in enumerate(wave_counts, start=1):
         # Clips 1-24: from source_speed_stream_36min.mp4 (0 to 2160s)
         # Clips 25-100: from source_speed_stream_part2.mp4 (0 to 6840s)
         if idx <= 24:
-            source_file = r"d:\vidclip\storage\review_cuts\source_speed_stream_36min.mp4"
+            source_file = str(BASE_DIR / "storage" / "review_cuts\source_speed_stream_36min.mp4")
             start_sec = (idx - 1) * 90.0
         else:
-            source_file = r"d:\vidclip\storage\review_cuts\source_speed_stream_part2.mp4"
+            source_file = str(BASE_DIR / "storage" / "review_cuts\source_speed_stream_part2.mp4")
             start_sec = (idx - 25) * 90.0
 
         wave_videos.append({
@@ -167,8 +167,8 @@ Auto-generated for exact 30-minute cadence and 100% daily YouTube upload quota s
 
 from pathlib import Path
 
-OUTPUT_DIR = r"d:\\vidclip\\storage\\batch_ishowspeed"
-THUMB_DIR = r"d:\\vidclip\\storage\\thumbnails_speed"
+OUTPUT_DIR = str(BASE_DIR / "storage" / "batch_ishowspeed")
+THUMB_DIR = str(BASE_DIR / "storage" / "thumbnails_speed")
 
 WAVES = {json.dumps(waves, indent=2)}
 '''

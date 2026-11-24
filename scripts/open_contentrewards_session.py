@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-USER_DATA_DIR = Path("d:/vidclip/storage/contentrewards_profile")
+USER_DATA_DIR = Path(str(BASE_DIR / "storage" / "contentrewards_profile"))
 USER_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 BLOCKED_KEYWORDS = ["wallet", "payout", "withdraw", "bank", "billing", "payment-method"]
