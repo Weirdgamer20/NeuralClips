@@ -7,10 +7,18 @@ from typing import Any, Dict, Optional
 class LayoutEngine:
     """Builds FFmpeg filtergraphs for 2K (1440x2560) or 1080p (1080x1920) vertical split-screen rendering."""
 
-    # 2K Resolution by default for premium YouTube VP9/AV1 encoding quality
-    IS_2K = os.getenv("OUTPUT_RESOLUTION", "2K").upper() == "2K"
+    # Output resolution: 4K (2160x3840), 2K (1440x2560), or 1080p (1080x1920)
+    RES_MODE = os.getenv("OUTPUT_RESOLUTION", "4K").upper()
+    IS_4K = RES_MODE == "4K"
+    IS_2K = RES_MODE == "2K"
 
-    if IS_2K:
+    if IS_4K:
+        CANVAS_WIDTH = 2160
+        CANVAS_HEIGHT = 3840
+        DIVIDER_HEIGHT = 10     # Sleek neon border divider
+        FACECAM_HEIGHT = 1530   # ~40% of 3840
+        GAMEPLAY_HEIGHT = 2300  # 2300 + 10 + 1530 = 3840 exact 4K canvas
+    elif IS_2K:
         CANVAS_WIDTH = 1440
         CANVAS_HEIGHT = 2560
         DIVIDER_HEIGHT = 6      # Sleek neon border divider between windows
