@@ -52,6 +52,9 @@ class FFmpegRenderer:
         bgm_music_path: Optional[str] = None,
         bgm_volume: float = 0.30,
         narration_volume: float = 1.20,
+        dubbed_audio_path: Optional[str] = None,
+        dubbed_volume: float = 1.25,
+        original_audio_ducking: float = 0.25,
     ) -> Tuple[bool, str]:
         """Renders vertical video (2K 1440x2560 or 1080x1920) with gameplay on top and facecam on bottom,
         plus mixed background music and boosted narration."""
@@ -65,6 +68,7 @@ class FFmpegRenderer:
 
         use_testsrc = not os.path.exists(input_video_path) or os.path.getsize(input_video_path) == 0
         has_bgm = bool(bgm_music_path and os.path.exists(bgm_music_path))
+        has_dub = bool(dubbed_audio_path and os.path.exists(dubbed_audio_path))
 
         if use_testsrc:
             cmd = [
@@ -73,11 +77,36 @@ class FFmpegRenderer:
                 "-f", "lavfi", "-i", "testsrc=size=1920x1080:rate=30",
                 "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=44100",
             ]
+            current_idx = 2
+            dub_idx = None
+            bgm_idx = None
+
+            if has_dub:
+                cmd.extend(["-i", dubbed_audio_path])
+                dub_idx = current_idx
+                current_idx += 1
+
             if has_bgm:
                 cmd.extend(["-stream_loop", "-1", "-i", bgm_music_path])
+                bgm_idx = current_idx
+                current_idx += 1
+
+            if has_dub and has_bgm:
+                audio_filter = (
+                    f"[{dub_idx}:a]volume={dubbed_volume:.2f},acompressor=threshold=-14dB:ratio=3.5:attack=5:release=50[dub_a];"
+                    f"[{bgm_idx}:a]volume={bgm_volume:.2f}[bgm_a];"
+                    f"[dub_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
+                )
+                full_filter = f"{video_filtergraph};{audio_filter}"
+                audio_map = "[a_out]"
+            elif has_dub:
+                audio_filter = f"[{dub_idx}:a]volume={dubbed_volume:.2f},aresample=async=1000[a_out]"
+                full_filter = f"{video_filtergraph};{audio_filter}"
+                audio_map = "[a_out]"
+            elif has_bgm:
                 audio_filter = (
                     f"[1:a]volume={narration_volume:.2f},acompressor=threshold=-16dB:ratio=3:attack=5:release=50,aresample=async=1000[main_a];"
-                    f"[2:a]volume={bgm_volume:.2f}[bgm_a];"
+                    f"[{bgm_idx}:a]volume={bgm_volume:.2f}[bgm_a];"
                     f"[main_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
                 )
                 full_filter = f"{video_filtergraph};{audio_filter}"
@@ -109,19 +138,61 @@ class FFmpegRenderer:
                 "-t", str(duration_seconds),
                 "-i", input_video_path,
             ]
+            current_idx = 1
+            dub_idx = None
+            bgm_idx = None
+
+            if has_dub:
+                cmd.extend(["-i", dubbed_audio_path])
+                dub_idx = current_idx
+                current_idx += 1
 
             if has_bgm:
                 cmd.extend(["-stream_loop", "-1", "-i", bgm_music_path])
+                bgm_idx = current_idx
+                current_idx += 1
+
+            if has_dub:
+                if has_bgm and has_audio:
+                    audio_filter = (
+                        f"[0:a]volume={original_audio_ducking:.2f},lowpass=f=4000[orig_duck];"
+                        f"[{dub_idx}:a]volume={dubbed_volume:.2f},acompressor=threshold=-14dB:ratio=3.5:attack=5:release=50[dub_vocal];"
+                        f"[{bgm_idx}:a]volume={bgm_volume:.2f}[bgm_a];"
+                        f"[orig_duck][dub_vocal][bgm_a]amix=inputs=3:duration=first:dropout_transition=2[a_out]"
+                    )
+                    full_filter = f"{video_filtergraph};{audio_filter}"
+                    audio_map = "[a_out]"
+                elif has_bgm:
+                    audio_filter = (
+                        f"[{dub_idx}:a]volume={dubbed_volume:.2f},acompressor=threshold=-14dB:ratio=3.5:attack=5:release=50[dub_vocal];"
+                        f"[{bgm_idx}:a]volume={bgm_volume:.2f}[bgm_a];"
+                        f"[dub_vocal][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
+                    )
+                    full_filter = f"{video_filtergraph};{audio_filter}"
+                    audio_map = "[a_out]"
+                elif has_audio:
+                    audio_filter = (
+                        f"[0:a]volume={original_audio_ducking:.2f},lowpass=f=4000[orig_duck];"
+                        f"[{dub_idx}:a]volume={dubbed_volume:.2f},acompressor=threshold=-14dB:ratio=3.5:attack=5:release=50[dub_vocal];"
+                        f"[orig_duck][dub_vocal]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
+                    )
+                    full_filter = f"{video_filtergraph};{audio_filter}"
+                    audio_map = "[a_out]"
+                else:
+                    audio_filter = f"[{dub_idx}:a]volume={dubbed_volume:.2f},aresample=async=1000[a_out]"
+                    full_filter = f"{video_filtergraph};{audio_filter}"
+                    audio_map = "[a_out]"
+            elif has_bgm:
                 if has_audio:
                     audio_filter = (
                         f"[0:a]volume={narration_volume:.2f},acompressor=threshold=-16dB:ratio=3:attack=5:release=50,aresample=async=1000[main_a];"
-                        f"[1:a]volume={bgm_volume:.2f}[bgm_a];"
+                        f"[{bgm_idx}:a]volume={bgm_volume:.2f}[bgm_a];"
                         f"[main_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a_out]"
                     )
                     full_filter = f"{video_filtergraph};{audio_filter}"
                     audio_map = "[a_out]"
                 else:
-                    audio_filter = f"[1:a]volume={bgm_volume:.2f},aresample=async=1000[a_out]"
+                    audio_filter = f"[{bgm_idx}:a]volume={bgm_volume:.2f},aresample=async=1000[a_out]"
                     full_filter = f"{video_filtergraph};{audio_filter}"
                     audio_map = "[a_out]"
             else:

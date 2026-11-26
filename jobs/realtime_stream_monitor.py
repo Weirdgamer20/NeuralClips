@@ -24,6 +24,7 @@ from core.state_store import StateStore
 from jobs.find_top_streams import get_top_gta6_livestreams
 from rendering.clip_extractor import ClipExtractor
 from publishing.youtube_publisher import YouTubePublisher
+from audio.chinese_dubbing_engine import ChineseDubbingEngine
 
 logger = setup_logger("neuralclips.realtime_monitor")
 
@@ -70,6 +71,10 @@ class RealTimeStreamMonitor:
 
             # Determine crop profile directly from streamer channel name
             crop_profile = channel
+
+            is_chinese = ChineseDubbingEngine.is_chinese_content(title=title, channel_title=channel)
+            if is_chinese:
+                logger.info(f"   -> [CHINESE STREAM DETECTED] '{title}' ({channel}). Will auto-dub into Hindi with animated subtitles.")
 
             # Register source stream in database
             self.state_store.create_source_stream(

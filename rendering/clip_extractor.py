@@ -13,6 +13,7 @@ from rendering.caption_engine import CaptionEngine
 from rendering.crop_detector import CropDetector
 from rendering.ffmpeg_renderer import FFmpegRenderer
 from rendering.render_validator import RenderValidator
+from audio.chinese_dubbing_engine import ChineseDubbingEngine
 from publishing.metadata_generator import MetadataGenerator
 from sources.media_downloader import MediaDownloader
 
@@ -42,6 +43,7 @@ class ClipExtractor:
         self.validator = validator or RenderValidator()
         self.state_store = state_store or StateStore()
         self.ai_director = AIVideoDirector()
+        self.chinese_dubber = ChineseDubbingEngine()
         os.makedirs(self.output_dir, exist_ok=True)
 
     def get_background_music(self, title: str = "", category: str = "") -> Optional[str]:
@@ -75,14 +77,39 @@ class ClipExtractor:
             crop_name = src_stream.get("crop_profile")
         profile = self.crop_detector.resolve_crop(crop_name, video_path=source_media_path)
 
-        # 2. Build animated ASS subtitles
-        transcript = highlight.get("transcript", "")
-        timed_words = TranscriptEngine.generate_timed_words(transcript, 0.0, duration)
-        if timed_words:
-            self.caption_engine.generate_ass_script(timed_words, ass_path)
-            subtitle_file = ass_path
+        # 2. Check for Chinese content -> Auto-dub in Hindi & generate animated subtitles
+        suggested_title = highlight.get("suggested_title", "")
+        stream_title = src_stream.get("title", "") if src_stream else ""
+        raw_transcript = highlight.get("transcript", "")
+        is_chinese = ChineseDubbingEngine.is_chinese_content(
+            title=f"{suggested_title} {stream_title}",
+            channel_title=crop_name or "",
+            transcript=raw_transcript,
+        )
+
+        dubbed_audio_path = None
+        if is_chinese:
+            logger.info(f"[CHINESE CONTENT DETECTED] Auto-dubbing {clip_id} into Hindi with animated subtitles...")
+            dub_pkg = self.chinese_dubber.prepare_dubbing_package(
+                clip_id=clip_id,
+                category=highlight.get("category", "gaming"),
+                title=f"{suggested_title} {stream_title}",
+                duration=duration,
+                output_dir=self.output_dir,
+            )
+            dubbed_audio_path = dub_pkg.get("dubbed_audio_path")
+            subtitle_file = dub_pkg.get("ass_subtitle_path")
+            if dub_pkg.get("localized_title"):
+                highlight["suggested_title"] = dub_pkg["localized_title"]
         else:
-            subtitle_file = None
+            # Build standard animated ASS subtitles
+            transcript = highlight.get("transcript", "")
+            timed_words = TranscriptEngine.generate_timed_words(transcript, 0.0, duration)
+            if timed_words:
+                self.caption_engine.generate_ass_script(timed_words, ass_path)
+                subtitle_file = ass_path
+            else:
+                subtitle_file = None
 
         # 3. Resolve real media input from source stream
         in_path = source_media_path
@@ -137,6 +164,9 @@ class ClipExtractor:
             bgm_music_path=bgm_track,
             bgm_volume=bgm_volume,
             narration_volume=1.20,
+            dubbed_audio_path=dubbed_audio_path,
+            dubbed_volume=1.25,
+            original_audio_ducking=0.25 if dubbed_audio_path else 1.0,
         )
 
         if not success:
